@@ -1,0 +1,24 @@
+/* Custom CSS for Character Tracker App */
+
+
+/**
+ *
+ *  CHARACTER CREATE/EDIT PAGE
+ *
+ */
+
+/* PREVIEW Container */
+ .preview-container {
+     height: 475px;
+     width: 350px;
+     color:gray;
+     border: 1px dashed rgb(192, 192, 192);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-transform: uppercase;
+     font-size: 1rem;
+     letter-spacing: 0.5px;
+     background-color: #fff;
+     overflow: hidden;
+ }

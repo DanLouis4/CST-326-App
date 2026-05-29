@@ -1,15 +1,134 @@
 <!DOCTYPE html>
-<html 
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/defaultTemplate}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultTemplate}">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Character</title>
 </head>
+
 <body>
+<section layout:fragment="content">
+
     <h1>Create Character</h1>
-    <p>Character creation form will go here.</p>
+
+    <form th:action="@{/characters/create}" th:object="${character}" method="post">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="mb-3">
+                    <label class="form-label">Character Name</label>
+                    <input type="text" class="form-control" th:field="*{characterName}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Level</label>
+                    <input type="number" class="form-control" th:field="*{characterLevel}" min="1" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Race</label>
+                    <select class="form-select" th:field="*{raceId}" required>
+                        <option value="">-- Select Race --</option>
+                        <option th:each="race : ${races}"
+                                th:value="${race.raceId}"
+                                th:text="${race.raceName}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Class</label>
+                    <select class="form-select" th:field="*{classId}" required>
+                        <option value="">-- Select Class --</option>
+                        <option th:each="characterClass : ${characterClasses}"
+                                th:value="${characterClass.classId}"
+                                th:text="${characterClass.className}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" th:field="*{characterGender}" required>
+                        <option value="">-- Select Gender --</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <select class="form-select" th:field="*{characterType}" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="Player">Player</option>
+                        <option value="NPC">NPC</option>
+                        <option value="Monster">Monster</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Visibility</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" th:field="*{visibility}" value="1" id="publicVisibility">
+                        <label class="form-check-label" for="publicVisibility">Public</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" th:field="*{visibility}" value="0" id="privateVisibility">
+                        <label class="form-check-label" for="privateVisibility">Private</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Image URL</label>
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{imageUrl}"
+                           id="imageUrlInput"
+                           oninput="updateImagePreview()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="5" th:field="*{characterDescription}"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Character</button>
+                <a th:href="@{/characters}" class="btn btn-secondary">Cancel</a>
+
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Image Preview</label>
+
+                <div class="preview-container">
+                    <img id="imagePreview"
+                         src=""
+                         alt="Character image preview"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+    <script>
+        function updateImagePreview()
+        {
+            const imageUrl = document.getElementById("imageUrlInput").value;
+            const imagePreview = document.getElementById("imagePreview");
+
+            imagePreview.src = imageUrl;
+        }
+    </script>
+
+</section>
 </body>
 </html>
