@@ -22,7 +22,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The CharacterEntity class represents a character record in the database.
@@ -39,15 +41,20 @@ public class CharacterEntity
     private Long characterId;
 
     @Column(name = "character_name")
+    @NotBlank(message = "Character name is required")
     private String characterName;
 
     @Column(name = "character_level")
+    @NotNull(message = "Character level is required")
+    @Min(value = 1, message = "Character level must be at least 1")
     private Integer characterLevel;
 
     @Column(name = "character_gender")
+    @NotBlank(message = "Please select a character gender")
     private String characterGender;
 
     @Column(name = "character_type")
+    @NotBlank(message = "Please select a character type")
     private String characterType;
 
     @Column(name = "character_description")
@@ -57,16 +64,18 @@ public class CharacterEntity
     private Long userId;
 
     @Column(name = "race_id")
+    @NotNull(message = "Please select a race")
     private Long raceId;
 
     @Column(name = "class_id")
+    @NotNull(message = "Please select a class")
     private Long classId;
 
     @Column(name = "visibility")
-    private Integer visibility;
+    private Integer visibility = 1; // Default visibility is public
 
     @Column(name = "flagged")
-    private Boolean flagged;
+    private Boolean flagged = false; // Default flagged is false
 
     @Column(name = "image_url")
     private String imageUrl;

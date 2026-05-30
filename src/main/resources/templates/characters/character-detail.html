@@ -1,15 +1,86 @@
 <!DOCTYPE html>
-<html 
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/defaultTemplate}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultTemplate}">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Character Details</title>
 </head>
+
 <body>
-    <h1>Character Details</h1>
-    <p>Character details will go here.</p>
+<section layout:fragment="content">
+    
+    <!-- Text navigation back to character list -->
+    <div class="mb-xxl-5 align-self-xl-end">
+        <a th:href="@{/characters}" class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i> Back to Character List</a>
+    </div>
+
+    <h1 th:text="${character.characterName}">Character Name</h1>
+
+    <div class="row mt-4">
+
+        <div class="col-md-8 pb-5">
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Character Information
+                </div>
+
+                <div class="card-body">
+
+                    <p><strong>Level:</strong> <span th:text="${character.characterLevel}">1</span></p>
+                    <p><strong>Race ID:</strong> <span th:text="${character.raceId}">Race</span></p>
+                    <p><strong>Class ID:</strong> <span th:text="${character.classId}">Class</span></p>
+                    <p><strong>Gender:</strong> <span th:text="${character.characterGender}">Gender</span></p>
+                    <p><strong>Type:</strong> <span th:text="${character.characterType}">Type</span></p>
+
+                    <p>
+                        <strong>Visibility:</strong>
+                        <span th:if="${character.visibility == 1}">Public</span>
+                        <span th:if="${character.visibility == 0}">Private</span>
+                    </p>
+
+                    <p>
+                        <strong>Flagged:</strong>
+                        <span th:if="${character.flagged}">Yes</span>
+                        <span th:if="${!character.flagged}">No</span>
+                    </p>
+
+                    <p>
+                        <strong>Description:</strong> <div class="character-description"
+                        th:text="${character.characterDescription}">
+                    </div>
+
+                </div>
+            </div>
+
+            <a th:href="@{/characters/edit/{id}(id=${character.characterId})}" class="btn btn-success">Edit Character</a>
+            <a th:href="@{/characters}" class="btn btn-outline-primary">Back to Characters</a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="preview-container">
+                <div id="previewPlaceholder">Image Preview</div>
+
+                <img id="imagePreview"
+                    th:attr="data-image-url=${character.imageUrl}"
+                    style="display:none; width:100%; height:100%; object-fit:cover;"
+                    alt="Character image preview">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadImagePreview(null, "imagePreview", "previewPlaceholder");
+        });
+    </script>
+
+</section>
 </body>
 </html>

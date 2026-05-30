@@ -13,6 +13,7 @@ package com.gcu.charactertracker.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,8 @@ import com.gcu.charactertracker.entities.CharacterEntity;
 import com.gcu.charactertracker.services.CharacterService;
 import com.gcu.charactertracker.services.ClassService;
 import com.gcu.charactertracker.services.RaceService;
+
+import jakarta.validation.Valid;
 
 /**
  * The CharacterController class is responsible for handling web requests related to character management.
@@ -76,12 +79,18 @@ public class CharacterController
      * @return a redirect to the list of characters
      */
     @PostMapping("/create")
-    public String createCharacter(@ModelAttribute("character") CharacterEntity character)
+    public String createCharacter(@Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model)
     {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("races", raceService.getAllRaces());
+            model.addAttribute("characterClasses", classService.getAllClasses());
+            return "characters/character-create";
+        }
+
         character.setFlagged(false); // Set default value for flagged field at creation
         character.setUserId(1L); // Set default user ID for the character until user authentication is implemented
         characterService.saveCharacter(character);
-        return "redirect:/characters";
+        return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
     /**
@@ -133,11 +142,31 @@ public class CharacterController
      * @return a redirect to the list of characters
      */
     @PostMapping("/edit/{id}")
-    public String updateCharacter(@PathVariable Long id, @ModelAttribute("character") CharacterEntity character)
+    public String updateCharacter(@PathVariable Long id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model)
     {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("races", raceService.getAllRaces());
+            model.addAttribute("characterClasses", classService.getAllClasses());
+            return "characters/character-edit";
+        }
+        
+        CharacterEntity existingCharacter = characterService.getCharacterById(id);
+
+        /* Check if the character exists */
+        if (existingCharacter == null)
+        {
+            return "redirect:/characters";
+        }
+
+        /* Preserve the original values for fields that should not be changed  */
+        character.setUserId(existingCharacter.getUserId()); // Preserve the original user ID
         character.setCharacterId(id); // Ensure the character ID is set for the update operation
+        character.setFlagged(existingCharacter.getFlagged()); // Preserve the original flagged status
+        character.setCreatedAt(existingCharacter.getCreatedAt()); // Preserve the original creation timestamp
+
         characterService.saveCharacter(character);
-        return "redirect:/characters";
+        
+        return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
     /**

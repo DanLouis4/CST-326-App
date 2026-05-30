@@ -11,6 +11,11 @@
 <body>
 <section layout:fragment="content">
 
+    <!-- Text navigation back to character list -->
+    <div class="mb-3">
+        <a th:href="@{/characters}" class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i> Back to Character List</a>
+    </div>
+
     <h1>Create Character</h1>
 
     <form th:action="@{/characters/create}" th:object="${character}" method="post">
@@ -21,54 +26,60 @@
 
                 <div class="mb-3">
                     <label class="form-label">Character Name</label>
-                    <input type="text" class="form-control" th:field="*{characterName}" required>
+                    <input type="text" class="form-control" th:field="*{characterName}">
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('characterName')}" th:errors="*{characterName}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Level</label>
-                    <input type="number" class="form-control" th:field="*{characterLevel}" min="1" required>
+                    <input type="number" class="form-control" th:field="*{characterLevel}" placeholder="0">
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('characterLevel')}" th:errors="*{characterLevel}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Race</label>
-                    <select class="form-select" th:field="*{raceId}" required>
+                    <select class="form-select" th:field="*{raceId}">
                         <option value="">-- Select Race --</option>
                         <option th:each="race : ${races}"
                                 th:value="${race.raceId}"
                                 th:text="${race.raceName}">
                         </option>
                     </select>
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('raceId')}" th:errors="*{raceId}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Class</label>
-                    <select class="form-select" th:field="*{classId}" required>
+                    <select class="form-select" th:field="*{classId}">
                         <option value="">-- Select Class --</option>
                         <option th:each="characterClass : ${characterClasses}"
                                 th:value="${characterClass.classId}"
                                 th:text="${characterClass.className}">
                         </option>
                     </select>
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('classId')}" th:errors="*{classId}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Gender</label>
-                    <select class="form-select" th:field="*{characterGender}" required>
+                    <select class="form-select" th:field="*{characterGender}">
                         <option value="">-- Select Gender --</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('characterGender')}" th:errors="*{characterGender}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Type</label>
-                    <select class="form-select" th:field="*{characterType}" required>
+                    <select class="form-select" th:field="*{characterType}">
                         <option value="">-- Select Type --</option>
                         <option value="Player">Player</option>
                         <option value="NPC">NPC</option>
                         <option value="Monster">Monster</option>
                     </select>
+                    <div class="text-danger text-sm-start" th:if="${#fields.hasErrors('characterType')}" th:errors="*{characterType}"></div>
                 </div>
 
                 <div class="mb-3">
@@ -88,10 +99,10 @@
                 <div class="mb-3">
                     <label class="form-label">Image URL</label>
                     <input type="text"
-                           class="form-control"
-                           th:field="*{imageUrl}"
-                           id="imageUrlInput"
-                           oninput="updateImagePreview()">
+                        class="form-control"
+                        th:field="*{imageUrl}"
+                        id="imageUrlInput"
+                        oninput="loadImagePreview('imageUrlInput', 'imagePreview', 'previewPlaceholder')">
                 </div>
 
                 <div class="mb-3">
@@ -99,20 +110,20 @@
                     <textarea class="form-control" rows="5" th:field="*{characterDescription}"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create Character</button>
-                <a th:href="@{/characters}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success">Create Character</button>
+                <a th:href="@{/characters}" class="btn btn-danger">Cancel</a>
 
             </div>
 
             <div class="col-md-4 pb-5">
-                <label class="form-label">Image Preview</label>
+            <div class="preview-container">
+                <div id="previewPlaceholder">Image Preview</div>
 
-                <div class="preview-container">
-                    <img id="imagePreview"
-                         src=""
-                         alt="Character image preview"
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
+                <img id="imagePreview"
+                    th:attr="data-image-url=${character.imageUrl}"
+                    style="display:none; width:100%; height:100%; object-fit:cover;"
+                    alt="Character image preview">
+            </div>
             </div>
 
         </div>
@@ -120,15 +131,10 @@
     </form>
 
     <script>
-        function updateImagePreview()
-        {
-            const imageUrl = document.getElementById("imageUrlInput").value;
-            const imagePreview = document.getElementById("imagePreview");
-
-            imagePreview.src = imageUrl;
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            loadImagePreview("imageUrlInput", "imagePreview", "previewPlaceholder");
+        });
     </script>
-
 </section>
 </body>
 </html>
