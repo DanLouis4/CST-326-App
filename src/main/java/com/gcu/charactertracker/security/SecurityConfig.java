@@ -7,8 +7,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-// Spring Security controls public routes, protected routes, login, logout, and role-based access.
-// SecurityFilterChain is the standard way to configure request authorization in modern Spring Security.
 @Configuration
 public class SecurityConfig {
 
@@ -24,7 +22,7 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/users/dashboard", true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/auth/login?error=true")
                 .permitAll()
             )
