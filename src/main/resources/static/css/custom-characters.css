@@ -19,6 +19,14 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.cormorant-garamond-regular {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 body
 {
     background-color: #2c2c31;
@@ -376,9 +384,122 @@ body
  *
  */
 
- .character-description
- {
-     white-space: pre-wrap;
-     font-size: 1.1rem;
-     line-height: 1.5;
- }
+ .character-detail-wrapper
+{
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.character-detail-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.character-detail-title
+{
+    font-family: Cinzel, serif;
+    font-size: 2.5rem;
+}
+
+.character-detail-actions
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.character-detail-panel
+{
+    min-height: 720px;
+    padding: 24px 0;
+    background-color: transparent;
+    border-top: 1px solid #444d5b;
+}
+
+.character-detail-image-wrap
+{
+    float: right;
+    width: 50%;
+    margin-left: 24px;
+    margin-bottom: 24px;
+}
+
+.character-detail-image
+{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.character-stat-block
+{
+    max-width: 460px;
+}
+
+.level-box
+{
+    width: 90px;
+    padding: 12px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    border: 1px solid #444d5b;
+    border-radius: 14px;
+}
+
+.level-box span
+{
+    display: block;
+    text-transform: uppercase;
+    font-size: .8rem;
+}
+
+.level-box strong
+{
+    display: block;
+    font-family: Cinzel, serif;
+    font-size: 2rem;
+}
+
+.detail-row
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.detail-row-item
+{
+    display: block;
+    font-family: Cinzel, serif;
+    font-size: 1.6rem;
+}
+
+.detail-row-label
+{
+    border-bottom: 1px solid #444d5b;
+    display: block;
+    text-transform: uppercase;
+    font-size: .7rem;
+}
+
+.character-description-label
+{
+    display: block;
+    text-transform: uppercase;
+    font-size: .7rem;
+    border-bottom: 1px solid #444d5b;
+    margin-bottom: 10px;
+}
+
+.character-description-content
+{
+    white-space: pre-wrap;
+    font-family: "Cormorant Garamond", "Garamond", serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    text-align: justify;
+}
