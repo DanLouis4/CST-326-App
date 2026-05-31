@@ -9,7 +9,94 @@
     <title>Filter</title>
 </head>
 <body>
-    <h1>Filter</h1>
-    <p>Filter options will go here.</p>
+    <div layout:fragment="content">
+
+        <h1>Character Filters</h1>
+
+        <form>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Race
+                </label>
+
+                <select class="form-select">
+                    <option>All</option>
+                    <option>Human</option>
+                    <option>Elf</option>
+                    <option>Dwarf</option>
+                    <option>Orc</option>
+                    <option>Goblin</option>
+                    <option>Angelborn</option>
+                    <option>Demonspawn</option>
+                    <option>Other</option>
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Class
+                </label>
+
+                <select class="form-select">
+                    <option>All</option>
+                    <option>Classless</option>
+                    <option>Knight</option>
+                    <option>Warrior</option>
+                    <option>Paladin</option>
+                    <option>Beserker</option>
+                    <option>Monk</option>
+                    <option>Ranger</option>
+                    <option>Thief</option>
+                    <option>Ninja</option>
+                    <option>Assassin</option>
+                    <option>Pirate</option>
+                    <option>Wizard</option>
+                    <option>Cleric</option>
+                    <option>Sorcerer</option>
+                    <option>Sorceress</option>
+                    <option>Warlock</option>
+                    <option>Witch</option>
+                    <option>Farmer</option>
+                    <option>Blacksmith</option>
+                    <option>Merchant</option>
+                    <option>Innkeeper</option>
+                    <option>Guard</option>
+                    <option>Royalty</option>
+                    <option>Lord</option>
+                    <option>Lady</option>
+                    <option>Governor</option>
+                    <option>Magistrate</option>
+                </select>
+
+            </div>
+
+            <div>
+
+                <label class="form-label">
+                    Class-Type
+                </label>
+
+                <select class="form-select">
+                    <option>All Class-Type</option>
+                    <option>Fighter</option>
+                    <option>Rogue</option>
+                    <option>Spellcaster</option>
+                    <option>Commoner</option>
+                    <option>Noble</option>
+                </select>
+
+            </div>
+
+            <button class="btn btn-primary">
+                Apply Filter
+            </button>
+
+        </form>
+
+    </div>
 </body>
 </html>

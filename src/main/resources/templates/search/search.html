@@ -9,7 +9,161 @@
     <title>Search Characters</title>
 </head>
 <body>
-    <h1>Search Characters</h1>
-    <p>Character search form will go here.</p>
+    <form th:action="@{/search}" method="get">
+
+        <div class="input-group mb-3">
+
+            <input type="text"
+                   name="keyword"
+                   class="form-control"
+                   placeholder="Search characters...">
+
+            <button class="btn btn-primary"
+                    type="submit">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <form th:action="@{/search}" method="get">
+
+        <input type="hidden"
+               name="keyword"
+               th:value="${keyword}">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <label>Race</label>
+
+                <select class="form-select"
+                        name="race">
+
+                    <option value="">All Races</option>
+                    <option value="Human">Human</option>
+                    <option value="Elf">Elf</option>
+                    <option value="Dwarf">Dwarf</option>
+                    <option value="Orc">Orc</option>
+                    <option value="Goblin">Goblin</option>
+                    <option value="Angelborn">Angelborn</option>
+                    <option value="Demonspawn">Demonspawn</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label>Class</label>
+
+                <select class="form-select"
+                        name="characterClass">
+
+                    <option value="">Classless</option>
+                    <option value="Knight">Knight</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Beserker">Beserker</option>
+                    <option value="Monk">Monk</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Thief">Thief</option>
+                    <option value="Ninja">Ninja</option>
+                    <option value="Assassin">Assassin</option>
+                    <option value="Pirate">Pirate</option>
+                    <option value="Wizard">Wizard</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Srocerer">Sorcerer</option>
+                    <option value="Sorceress">Sorceress</option>
+                    <option value="Warlock">Warlock</option>
+                    <option value="Witch">Witch</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Blacksmith">Blacksmith</option>
+                    <option value="Merchant">Merchant</option>
+                    <option value="Innkeeper">Innkeeper</option>
+                    <option value="Guard">Guard</option>
+                    <option value="Royalty">Royalty</option>
+                    <option value="Lord">Lord</option>
+                    <option value="Lady">Lady</option>
+                    <option value="Governer">Governor</option>
+                    <option value="Magistrate">Magistrate</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label>Class-Type</label>
+
+                <select class="form-select"
+                        name="classType">
+
+                    <option value="">All Class-Type</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Spellcaster">Spellcaster</option>
+                    <option value="Commoner">Commoner</option>
+                    <option value="Noble">Noble</option>
+
+                </select>
+
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-secondary mt-3">
+
+            Apply Filters
+
+        </button>
+
+    </form>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Race</th>
+                <th>Class</th>
+                <th>Creator</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr th:each="character : ${characters}">
+
+                <td th:text="${character.characterName}"></td>
+                <td th:text="${character.race}"></td>
+                <td th:text="${character.characterClass}"></td>
+                <td th:text="${character.creator.username}"></td>
+
+                <td>
+
+                    <form th:action="@{/users/favorites/add/{id}(id=${character.id})}"
+                          method="post">
+
+                        <button class="btn btn-warning">
+                            Favorite
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
 </body>
 </html>
