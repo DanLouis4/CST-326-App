@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.gcu.charactertracker.entities.RoleEntity;
 
 @Repository
-public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
+public interface RoleRepository extends JpaRepository<RoleEntity, Integer> {
 
     Optional<RoleEntity> findByRoleName(String roleName);
 }
