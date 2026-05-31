@@ -17,7 +17,12 @@
         rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link th:href="@{/css/custom.css}" rel="stylesheet">
+    <link th:href="@{/css/custom-characters.css}" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Trade+Winds&display=swap" rel="stylesheet">
 
 </head>
 
@@ -26,7 +31,7 @@
 
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <main class="container mt-5 pt-4">
+    <main class="container-fluid mt-5 pt-4">
         <div layout:fragment="content">
             Page Content
         </div>

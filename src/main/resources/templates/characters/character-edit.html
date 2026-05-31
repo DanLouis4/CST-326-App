@@ -9,14 +9,17 @@
 </head>
 
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" class="container">
 
     <!-- Text navigation back to character list -->
     <div class="mb-3">
         <a th:href="@{/characters}" class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i> Back to Character List</a>
     </div>
 
-    <h1>Edit Character</h1>
+    <div class="character-form-header text-center mb-4">
+        <h1 class="cinzel-regular mb-1">Edit Character</h1>
+        <p class="mb-4">Update the details of your character below. You can modify information such as name, level, race, class, and more.</p>
+    </div>
 
     <form th:action="@{/characters/edit/{id}(id=${character.characterId})}" th:object="${character}" method="post">
 
@@ -83,7 +86,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Visibility</label>
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" th:field="*{visibility}" value="1" id="publicVisibility">

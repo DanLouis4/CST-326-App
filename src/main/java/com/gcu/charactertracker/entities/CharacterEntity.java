@@ -21,6 +21,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -67,9 +69,17 @@ public class CharacterEntity
     @NotNull(message = "Please select a race")
     private Long raceId;
 
+    @ManyToOne
+    @JoinColumn(name = "race_id", insertable = false, updatable = false)
+    private RaceEntity race;
+
     @Column(name = "class_id")
     @NotNull(message = "Please select a class")
     private Long classId;
+    
+    @ManyToOne
+    @JoinColumn(name = "class_id", insertable = false, updatable = false)
+    private ClassEntity characterClass;
 
     @Column(name = "visibility")
     private Integer visibility = 1; // Default visibility is public
@@ -257,6 +267,26 @@ public class CharacterEntity
     }
 
     /**
+     * Gets the race entity.
+     * 
+     * @return the race entity
+     */
+    public RaceEntity getRace() 
+    {
+        return race;
+    }
+
+    /**
+     * Sets the race entity.
+     * 
+     * @param race the race entity to set
+     */
+    public void setRace(RaceEntity race) 
+    {
+        this.race = race;
+    }
+
+    /**
      * Gets the class ID.
      * 
      * @return the class ID
@@ -274,6 +304,26 @@ public class CharacterEntity
     public void setClassId(Long classId) 
     {
         this.classId = classId;
+    }
+
+    /**
+     * Gets the class entity.
+     * 
+     * @return the class entity
+     */
+    public ClassEntity getCharacterClass() 
+    {
+        return characterClass;
+    }
+
+    /**
+     * Sets the class entity.
+     * 
+     * @param characterClass the class entity to set
+     */
+    public void setCharacterClass(ClassEntity characterClass) 
+    {
+        this.characterClass = characterClass;
     }
 
     public Integer getVisibility() 

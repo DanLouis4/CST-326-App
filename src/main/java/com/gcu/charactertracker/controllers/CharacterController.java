@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gcu.charactertracker.entities.CharacterEntity;
 import com.gcu.charactertracker.services.CharacterService;
@@ -76,10 +77,13 @@ public class CharacterController
     /**
      * Processes the form submission for creating a new character.
      * @param character the CharacterEntity object populated from the form
+     * @param bindingResult the BindingResult object to check for validation errors
+     * @param model the Model object to pass data to the view
+     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
      * @return a redirect to the list of characters
      */
     @PostMapping("/create")
-    public String createCharacter(@Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model)
+    public String createCharacter(@Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
@@ -90,6 +94,9 @@ public class CharacterController
         character.setFlagged(false); // Set default value for flagged field at creation
         character.setUserId(1L); // Set default user ID for the character until user authentication is implemented
         characterService.saveCharacter(character);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Character created successfully.");
+
         return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
@@ -139,10 +146,13 @@ public class CharacterController
      * Processes the form submission for updating an existing character.
      * @param id the ID of the character
      * @param character the CharacterEntity object populated from the form
+     * @param bindingResult the BindingResult object to check for validation errors
+     * @param model the Model object to pass data to the view
+     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
      * @return a redirect to the list of characters
      */
     @PostMapping("/edit/{id}")
-    public String updateCharacter(@PathVariable Long id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model)
+    public String updateCharacter(@PathVariable Long id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
@@ -165,19 +175,21 @@ public class CharacterController
         character.setCreatedAt(existingCharacter.getCreatedAt()); // Preserve the original creation timestamp
 
         characterService.saveCharacter(character);
-        
+        redirectAttributes.addFlashAttribute("successMessage", "Character updated successfully.");
         return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
     /**
      * Deletes a character by its ID.
      * @param id the ID of the character to delete
+     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
      * @return a redirect to the list of characters
      */
     @GetMapping("/delete/{id}")
-    public String deleteCharacter(@PathVariable Long id)
+    public String deleteCharacter(@PathVariable Long id, RedirectAttributes redirectAttributes)
     {
         characterService.deleteCharacter(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Character deleted successfully.");
         return "redirect:/characters";
     }
 }

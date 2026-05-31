@@ -11,53 +11,121 @@
 <body>
     <section layout:fragment="content">
 
-        <h1>Characters</h1>
-        <p>Manage your characters here. You can create, view, edit, or delete characters as needed.<br>
-        <small class="text-muted"><em>Temporary Table View for testing purposes</em></small>
-        </p>
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}">Success message</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
 
-        <a th:href="@{/characters/create}">Create New Character</a>
+        <div class="character-list-header text-center mb-4">
+            <h1 class="cinzel-regular mb-1">Characters</h1>
+            <p class="mb-4">Manage your characters here. You can create, view, edit, or delete characters as needed.</p>
+            <a th:href="@{/characters/create}" class="btn btn-primary">Create New Character</a>
+        </div>
 
         <div class="mt-xxl-2">
 
-            <table class="table table-striped table-hover bi-align-middle mt-3">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Level</th>
-                    <th>Race</th>
-                    <th>Class</th>
-                    <th>Gender</th>
-                    <th>Type</th>
-                    <th>Image URL</th>
-                    <th>Visibility</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
+            <div class="character-grid mt-4">
 
-                <tbody>
-                <tr th:each="character : ${characters}">
-                    <td th:text="${character.characterName}">Name</td>
-                    <td th:text="${character.characterLevel}">Level</td>
-                    <td th:text="${character.raceId}">Race</td>
-                    <td th:text="${character.classId}">Class</td>
-                    <td th:text="${character.characterGender}">Gender</td>
-                    <td th:text="${character.characterType}">Type</td>
-                    <td th:text="${character.imageUrl}">Image URL</td>
-                    <td th:text="${character.visibility}">Visibility</td>
-                    <td>
-                        <a th:href="@{/characters/detail/{id}(id=${character.characterId})}">View</a>
-                        |
-                        <a th:href="@{/characters/edit/{id}(id=${character.characterId})}">Edit</a>
-                        |
-                        <a th:href="@{/characters/delete/{id}(id=${character.characterId})}"
-                        onclick="return confirm('Are you sure you want to delete this character?');">
-                        Delete
+                <!-- CHARACTER CARDS -->
+                <div class="character-card" th:each="character : ${characters}">
+
+                    <img class="character-card-img"
+                        th:src="${character.imageUrl}"
+                        alt="Character image">
+
+                    <div class="character-card-overlay">
+
+                        <div class="card-header-area">
+                            <div class="character-card-badges">
+                                <span class="badge bg-dark">
+                                    <span th:if="${character.visibility == 1}">
+                                        <i class="bi bi-eye-fill"></i> Public
+                                    </span>
+                                    <span th:if="${character.visibility == 0}">
+                                        <i class="bi bi-eye-slash-fill text-danger"></i> Private
+                                    </span>
+                                </span>
+
+                                <span class="badge character-badge-player"
+                                    th:if="${character.characterType == 'Player'}">
+                                    <i class="bi bi-person-fill"></i> Player
+                                </span>
+
+                                <span class="badge character-badge-npc"
+                                    th:if="${character.characterType == 'NPC'}">
+                                    <i class="bi bi-person-badge-fill"></i> NPC
+                                </span>
+
+                                <span class="badge character-badge-monster"
+                                    th:if="${character.characterType == 'Monster'}">
+                                    <i class="bi bi-bug-fill"></i> Monster
+                                </span>
+                            </div>
+
+                            <button class="favorite-btn" type="button">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="card-fill"></div>
+
+                        <a th:href="@{/characters/detail/{id}(id=${character.characterId})}"
+                        class="character-info">
+                            <h3 th:text="${character.characterName}">Character Name</h3>
+                            <p>
+                                <span th:text="${character.race.raceName}">Race</span>
+                                ·
+                                <span th:text="${character.characterClass.className}">Class</span>
+                            </p>
                         </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+                        <div class="card-footer-area">
+                            <div class="user-info">
+                                Created by <em>User</em> <span th:text="${#temporals.format(character.createdAt, 'MMM dd, yyyy')}">Date</span><br>
+                                Last Updated: <span th:text="${#temporals.format(character.updatedAt, 'MMM dd, yyyy')}">Date</span>
+                            </div>
+
+                            <div class="character-card-actions">
+                                <a class="btn btn-outline-primary btn-sm character-card-action-btn"
+                                th:href="@{/characters/detail/{id}(id=${character.characterId})}">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+
+                                <a class="btn btn-outline-success btn-sm character-card-action-btn"
+                                th:href="@{/characters/edit/{id}(id=${character.characterId})}">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+
+                                <a class="btn btn-outline-danger btn-sm character-card-action-btn"
+                                th:href="@{/characters/delete/{id}(id=${character.characterId})}"
+                                onclick="return confirm('Delete this character?');">
+                                    <i class="bi bi-trash"></i> Del
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CREATE CHARACTER CARD -->
+                <a th:href="@{/characters/create}" class="character-create-card">
+
+                    <div class="create-card-content">
+
+                        <div class="create-icon">
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+
+                        <h3>Create Character</h3>
+
+                        <p>Add a new hero, NPC, or monster</p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
         </div>
     
 </section>

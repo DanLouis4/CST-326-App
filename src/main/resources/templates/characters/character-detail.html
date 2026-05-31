@@ -9,14 +9,15 @@
 </head>
 
 <body>
-<section layout:fragment="content">
+<section layout:fragment="content" class="container">
     
     <!-- Text navigation back to character list -->
     <div class="mb-xxl-5 align-self-xl-end">
         <a th:href="@{/characters}" class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i> Back to Character List</a>
     </div>
 
-    <h1 th:text="${character.characterName}">Character Name</h1>
+    <span th:if="${character.flagged}"><i class="bi bi-flag-fill text-danger"></i></span>
+    <h1 th:text="${character.characterName}" class="cinzel-regular">Character Name</h1>
 
     <div class="row mt-4">
 
@@ -30,8 +31,8 @@
                 <div class="card-body">
 
                     <p><strong>Level:</strong> <span th:text="${character.characterLevel}">1</span></p>
-                    <p><strong>Race ID:</strong> <span th:text="${character.raceId}">Race</span></p>
-                    <p><strong>Class ID:</strong> <span th:text="${character.classId}">Class</span></p>
+                    <p><strong>Race:</strong> <span th:text="${character.race.raceName}">Race</span></p>
+                    <p><strong>Class:</strong> <span th:text="${character.characterClass.className}">Class</span></p>
                     <p><strong>Gender:</strong> <span th:text="${character.characterGender}">Gender</span></p>
                     <p><strong>Type:</strong> <span th:text="${character.characterType}">Type</span></p>
 
@@ -41,11 +42,6 @@
                         <span th:if="${character.visibility == 0}">Private</span>
                     </p>
 
-                    <p>
-                        <strong>Flagged:</strong>
-                        <span th:if="${character.flagged}">Yes</span>
-                        <span th:if="${!character.flagged}">No</span>
-                    </p>
 
                     <p>
                         <strong>Description:</strong> <div class="character-description"
