@@ -59,7 +59,7 @@ public class CharacterEntity
     @NotBlank(message = "Please select a character type")
     private String characterType;
 
-    @Column(name = "character_description")
+    @Column(name = "character_description", columnDefinition = "LONGTEXT")
     private String characterDescription;
 
     @Column(name = "user_id")
@@ -87,7 +87,7 @@ public class CharacterEntity
     @Column(name = "flagged")
     private Boolean flagged = false; // Default flagged is false
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(name = "created_at", updatable = false)
