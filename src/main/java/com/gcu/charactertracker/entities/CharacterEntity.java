@@ -63,7 +63,7 @@ public class CharacterEntity
     private String characterDescription;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "race_id")
     @NotNull(message = "Please select a race")
@@ -231,7 +231,7 @@ public class CharacterEntity
      * 
      * @return the user ID
      */
-    public Long getUserId() 
+    public Integer getUserId() 
     {
         return userId;
     }
@@ -241,7 +241,7 @@ public class CharacterEntity
      * 
      * @param userId the user ID to set
      */
-    public void setUserId(Long userId) 
+    public void setUserId(Integer userId) 
     {
         this.userId = userId;
     }

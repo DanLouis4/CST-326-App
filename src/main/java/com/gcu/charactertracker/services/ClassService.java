@@ -48,7 +48,7 @@ public class ClassService
      * @param id the ID of the class
      * @return an Optional containing the ClassEntity if found, or empty if not found
      */
-    public Optional<ClassEntity> getClassById(Long id) 
+    public Optional<ClassEntity> getClassById(Integer id) 
     {
         return classRepository.findById(id);
     }

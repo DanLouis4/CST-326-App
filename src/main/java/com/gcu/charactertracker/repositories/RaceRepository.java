@@ -21,7 +21,7 @@ import com.gcu.charactertracker.entities.RaceEntity;
  * methods for common database operations such as save, findById, findAll, and delete.
  */
 @Repository
-public interface RaceRepository extends JpaRepository<RaceEntity, Long> 
+public interface RaceRepository extends JpaRepository<RaceEntity, Integer> 
 {
 
 }

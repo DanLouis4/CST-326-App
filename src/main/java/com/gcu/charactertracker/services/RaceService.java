@@ -48,7 +48,7 @@ public class RaceService
      * @param id the ID of the race
      * @return an Optional containing the RaceEntity if found, or empty if not found
      */
-    public Optional<RaceEntity> getRaceById(Long id) 
+    public Optional<RaceEntity> getRaceById(Integer id) 
     {
         return raceRepository.findById(id);
     }

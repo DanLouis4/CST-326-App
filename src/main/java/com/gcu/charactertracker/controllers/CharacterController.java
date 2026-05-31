@@ -92,7 +92,7 @@ public class CharacterController
         }
 
         character.setFlagged(false); // Set default value for flagged field at creation
-        character.setUserId(1L); // Set default user ID for the character until user authentication is implemented
+        character.setUserId(1); // Set default user ID for the character until user authentication is implemented
         characterService.saveCharacter(character);
 
         redirectAttributes.addFlashAttribute("successMessage", "Character created successfully.");
