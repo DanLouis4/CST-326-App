@@ -11,10 +11,35 @@
 <body>
 <section layout:fragment="content" class="container">
     
-    <!-- Text navigation back to character list -->
-    <div class="mb-xxl-5 align-self-xl-end">
-        <a th:href="@{/characters}" class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i> Back to Character List</a>
-    </div>
+    <div class="character-detail-wrapper">
+
+        <a th:href="@{/characters}" class="btn btn-outline-primary btn-sm mb-4">
+            &lt; Back to Character List
+        </a>
+
+        <div class="character-detail-header">
+            <h1 class="character-detail-title" th:text="${character.characterName}">Character Name</h1>
+
+            <div class="character-detail-actions">
+            <span class="badge bg-outline-secondary">
+                <span th:if="${character.visibility == 1}">
+                    <i class="bi bi-eye-fill"></i> Public
+                </span>
+                <span th:if="${character.visibility == 0}">
+                    <i class="bi bi-eye-slash-fill text-danger"></i> Private
+                </span>
+                </span>
+
+                <a th:href="@{/characters/edit/{id}(id=${character.characterId})}"
+                class="btn btn-success btn-sm">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+
+                <button class="btn btn-warning btn-sm">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </button>
+            </div>
+        </div>
 
     <span th:if="${character.flagged}"><i class="bi bi-flag-fill text-danger"></i></span>
     <h1 th:text="${character.characterName}" class="cinzel-regular">Character Name</h1>
