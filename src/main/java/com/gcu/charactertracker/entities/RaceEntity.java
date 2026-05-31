@@ -33,7 +33,7 @@ public class RaceEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "race_id")
-    private Long raceId;
+    private Integer raceId;
 
     @Column(name = "race_name")
     private String raceName;
@@ -60,7 +60,7 @@ public class RaceEntity
      * 
      * @return the race ID
      */
-    public Long getRaceId()
+    public Integer getRaceId()
     {
         return raceId;
     }
@@ -70,7 +70,7 @@ public class RaceEntity
      * 
      * @param raceId the race ID to set
      */
-    public void setRaceId(Long raceId) 
+    public void setRaceId(Integer raceId) 
     {
         this.raceId = raceId;
     }

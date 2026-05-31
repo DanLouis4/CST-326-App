@@ -42,7 +42,7 @@ public class CharacterService
      * @param id the ID of the character
      * @return the CharacterEntity object, or null if not found
      */
-    public CharacterEntity getCharacterById(Long id)
+    public CharacterEntity getCharacterById(Integer id)
     {
         Optional<CharacterEntity> character = characterRepository.findById(id);
         return character.orElse(null);
@@ -63,7 +63,7 @@ public class CharacterService
      * Deletes a character from the database by its ID.
      * @param id the ID of the character to delete
      */
-    public void deleteCharacter(Long id)
+    public void deleteCharacter(Integer id)
     {
         characterRepository.deleteById(id);
     }

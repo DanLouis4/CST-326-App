@@ -40,7 +40,7 @@ public class CharacterEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "character_id")
-    private Long characterId;
+    private Integer characterId;
 
     @Column(name = "character_name")
     @NotBlank(message = "Character name is required")
@@ -67,7 +67,7 @@ public class CharacterEntity
 
     @Column(name = "race_id")
     @NotNull(message = "Please select a race")
-    private Long raceId;
+    private Integer raceId;
 
     @ManyToOne
     @JoinColumn(name = "race_id", insertable = false, updatable = false)
@@ -75,7 +75,7 @@ public class CharacterEntity
 
     @Column(name = "class_id")
     @NotNull(message = "Please select a class")
-    private Long classId;
+    private Integer classId;
     
     @ManyToOne
     @JoinColumn(name = "class_id", insertable = false, updatable = false)
@@ -111,7 +111,7 @@ public class CharacterEntity
      * 
      * @return the character ID
      */
-    public Long getCharacterId() 
+    public Integer getCharacterId() 
     {
         return characterId;
     }
@@ -121,7 +121,7 @@ public class CharacterEntity
      * 
      * @param characterId the character ID to set
      */
-    public void setCharacterId(Long characterId) 
+    public void setCharacterId(Integer characterId) 
     {
         this.characterId = characterId;
     }
@@ -251,7 +251,7 @@ public class CharacterEntity
      * 
      * @return the race ID
      */
-    public Long getRaceId() 
+    public Integer getRaceId() 
     {
         return raceId;
     }
@@ -261,7 +261,7 @@ public class CharacterEntity
      * 
      * @param raceId the race ID to set
      */
-    public void setRaceId(Long raceId) 
+    public void setRaceId(Integer raceId) 
     {
         this.raceId = raceId;
     }
@@ -291,7 +291,7 @@ public class CharacterEntity
      * 
      * @return the class ID
      */
-    public Long getClassId() 
+    public Integer getClassId() 
     {
         return classId;
     }
@@ -301,7 +301,7 @@ public class CharacterEntity
      * 
      * @param classId the class ID to set
      */
-    public void setClassId(Long classId) 
+    public void setClassId(Integer classId) 
     {
         this.classId = classId;
     }

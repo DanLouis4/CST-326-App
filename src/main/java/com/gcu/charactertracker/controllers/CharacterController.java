@@ -107,7 +107,7 @@ public class CharacterController
      * @return the name of the view template to render
      */
     @GetMapping("/detail/{id}")
-    public String showCharacterDetail(@PathVariable Long id, Model model)
+    public String showCharacterDetail(@PathVariable Integer id, Model model)
     {
         CharacterEntity character = characterService.getCharacterById(id);
 
@@ -127,7 +127,7 @@ public class CharacterController
      * @return the name of the view template to render
      */
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model)
+    public String showEditForm(@PathVariable Integer id, Model model)
     {
         CharacterEntity character = characterService.getCharacterById(id);
 
@@ -152,7 +152,7 @@ public class CharacterController
      * @return a redirect to the list of characters
      */
     @PostMapping("/edit/{id}")
-    public String updateCharacter(@PathVariable Long id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
+    public String updateCharacter(@PathVariable Integer id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
@@ -186,7 +186,7 @@ public class CharacterController
      * @return a redirect to the list of characters
      */
     @GetMapping("/delete/{id}")
-    public String deleteCharacter(@PathVariable Long id, RedirectAttributes redirectAttributes)
+    public String deleteCharacter(@PathVariable Integer id, RedirectAttributes redirectAttributes)
     {
         characterService.deleteCharacter(id);
         redirectAttributes.addFlashAttribute("successMessage", "Character deleted successfully.");
