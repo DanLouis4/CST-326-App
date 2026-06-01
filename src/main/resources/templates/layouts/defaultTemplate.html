@@ -43,6 +43,16 @@
     
     <!-- Image preview script -->
     <script th:src="@{/js/image-preview.js}"></script>
-    
+
+    <!-- Tooltip initialization script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
 </body>
 </html>

@@ -22,8 +22,8 @@
                     <!-- Right side links -->
                     <!-- User Not Signed In -->
 					<ul class="navbar-nav ms-auto" th:if="${session.user == null}">
-						<li class="nav-item"><a class="nav-link" href="/">Sign In</a></li>
-						<li class="nav-item"><a class="nav-link" href="/">Sign Up</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/register"><i class="bi bi-person-plus"></i> Register</a></li>
 					</ul>
 
                     <!-- User Signed In -->
@@ -41,19 +41,19 @@
 
                             <!-- User Dropdown Menu -->
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-
+								
 								<li>
-									<a class="dropdown-item disabled" href="#">Favorites</a>
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-gear-fill"></i> Profile</a>
 								</li>
 
 								<li>
-									<a class="dropdown-item disabled" href="#">Settings</a>
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-heart-fill"></i> Favorites</a>
 								</li>
 
 								<li><hr class="dropdown-divider"></li>
 
 								<li>
-									<a class="dropdown-item text-danger" href="/">Sign Out</a>
+									<a class="dropdown-item text-danger" href="/auth/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
 								</li>
 
 							</ul>

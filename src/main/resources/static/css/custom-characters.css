@@ -33,6 +33,24 @@ body
     color: #eee;
 }
 
+/* Custom Tooltip Styles */ 
+.tooltip-success {
+    --bs-tooltip-bg: var(--bs-success);
+    --bs-tooltip-color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.65rem;
+
+}
+
+.tooltip-warning {
+    --bs-tooltip-bg: var(--bs-warning);
+    --bs-tooltip-color: var(--bs-danger);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.65rem;
+}
+
 
 /**
  *
