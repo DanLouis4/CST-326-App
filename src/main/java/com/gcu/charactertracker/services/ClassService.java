@@ -42,6 +42,15 @@ public class ClassService
     {
         return classRepository.findAll();
     }
+     
+    /**
+     * Retrieves the distinct class types from the database.
+     * So that they can be used in the search filter dropdown.
+     * @return a list of distinct class types
+     */
+    public List<String> getDistinctClassTypes() {
+        return classRepository.findDistinctClassTypes();
+    }
 
     /**
      * Retrieves a class by its ID

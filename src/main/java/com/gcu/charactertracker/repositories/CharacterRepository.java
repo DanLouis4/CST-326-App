@@ -27,6 +27,6 @@ import com.gcu.charactertracker.entities.CharacterEntity;
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Integer> 
 {
 
-    List<CharacterEntity> findByNameContainingIgnoreCase(String name);
+    List<CharacterEntity> findByCharacterNameContainingIgnoreCase(String keyword);
 
 }

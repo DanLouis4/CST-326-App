@@ -10,7 +10,10 @@
  */
 package com.gcu.charactertracker.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.gcu.charactertracker.entities.ClassEntity;
@@ -23,5 +26,16 @@ import com.gcu.charactertracker.entities.ClassEntity;
 @Repository
 public interface ClassRepository extends JpaRepository<ClassEntity, Integer> 
 {
+
+    /**
+     * Retrieves a list of distinct class types from the database.
+     * @return a list of distinct class types
+     */
+    @Query("""
+        SELECT DISTINCT c.classType
+        FROM ClassEntity c
+        WHERE c.classType IS NOT NULL
+    """)
+    List<String> findDistinctClassTypes();
 
 }

@@ -1,11 +1,18 @@
 package com.gcu.charactertracker.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import com.gcu.charactertracker.entities.CharacterEntity;
+import com.gcu.charactertracker.entities.Favorite;
+import com.gcu.charactertracker.repositories.FavoriteRepository;
 
 @Service
 public class FavoriteService {
 
     private final FavoriteRepository favoriteRepository;
+
 
     public FavoriteService(
             FavoriteRepository favoriteRepository) {
@@ -13,24 +20,33 @@ public class FavoriteService {
         this.favoriteRepository = favoriteRepository;
     }
 
-    public List<Favorite> getFavorites(User user) {
-        return favoriteRepository.findByUser(user);
+    public List<Favorite> getFavorites(Integer userId) {
+        return favoriteRepository.findByUserId(userId);
     }
 
-    public void addFavorite(
-            User user,
-            Character character) {
+    public void addFavorite(CharacterEntity character) {
+
+        Integer userId = 1; // Placeholder user ID since UserEntity is not implemented
 
         if (favoriteRepository
-                .findByUserAndCharacter(user, character)
+                .findByUserIdAndCharacterId(userId, character.getCharacterId())
                 .isEmpty()) {
 
             Favorite favorite = new Favorite();
 
-            favorite.setUser(user);
-            favorite.setCharacter(character);
+            favorite.setUserId(userId); // Using userId directly since UserEntity is not implemented
+            favorite.setCharacterId(character.getCharacterId());
 
             favoriteRepository.save(favorite);
         }
+    }
+
+    public void removeFavorite(CharacterEntity character) {
+
+        Integer userId = 1; // Placeholder user ID since UserEntity is not implemented
+
+        favoriteRepository
+                .findByUserIdAndCharacterId(userId, character.getCharacterId())
+                .ifPresent(favoriteRepository::delete);
     }
 }

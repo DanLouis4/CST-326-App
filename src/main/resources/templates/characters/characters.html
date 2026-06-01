@@ -62,9 +62,11 @@
                                 </span>
                             </div>
 
-                            <button class="favorite-btn" type="button">
-                                <i class="bi bi-heart"></i>
-                            </button>
+                            <form th:action="@{/favorites/add/{id}(id=${character.characterId})}" method="post">
+                                <button class="favorite-btn" type="submit">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </form>
                         </div>
 
                         <div class="card-fill"></div>
