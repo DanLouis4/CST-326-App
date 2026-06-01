@@ -27,86 +27,8 @@
             <div class="character-grid mt-4">
 
                 <!-- CHARACTER CARDS -->
-                <div class="character-card" th:each="character : ${characters}">
-
-                    <img class="character-card-img"
-                        th:src="${character.imageUrl}"
-                        alt="Character image">
-
-                    <div class="character-card-overlay">
-
-                        <div class="card-header-area">
-                            <div class="character-card-badges">
-                                <span class="badge bg-dark">
-                                    <span th:if="${character.visibility == 1}">
-                                        <i class="bi bi-eye-fill"></i> Public
-                                    </span>
-                                    <span th:if="${character.visibility == 0}">
-                                        <span class="text-warning"><i class="bi bi-eye-slash-fill"></i> Private</span>
-                                    </span>
-                                </span>
-
-                                <span class="badge character-badge-player"
-                                    th:if="${character.characterType == 'Player'}">
-                                    <i class="bi bi-person-fill"></i> Player
-                                </span>
-
-                                <span class="badge character-badge-npc"
-                                    th:if="${character.characterType == 'NPC'}">
-                                    <i class="bi bi-person-badge-fill"></i> NPC
-                                </span>
-
-                                <span class="badge character-badge-monster"
-                                    th:if="${character.characterType == 'Monster'}">
-                                    <i class="bi bi-bug-fill"></i> Monster
-                                </span>
-                            </div>
-
-                            <form th:action="@{/favorites/add/{id}(id=${character.characterId})}" method="post">
-                                <button class="favorite-btn" type="submit">
-                                    <i class="bi bi-heart"></i>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="card-fill"></div>
-
-                        <a th:href="@{/characters/detail/{id}(id=${character.characterId})}"
-                        class="character-info">
-                            <h3 th:text="${character.characterName}">Character Name</h3>
-                            <p>
-                                <span th:text="${character.race.raceName}">Race</span>
-                                ·
-                                <span th:text="${character.characterClass.className}">Class</span>
-                            </p>
-                        </a>
-
-                        <div class="card-footer-area">
-                            <div class="user-info">
-                                Created by <em>User</em> <span th:text="${#temporals.format(character.createdAt, 'MMM dd, yyyy')}">Date</span><br>
-                                Last Updated: <span th:text="${#temporals.format(character.updatedAt, 'MMM dd, yyyy')}">Date</span>
-                            </div>
-
-                            <div class="character-card-actions">
-                                <a class="btn btn-outline-primary btn-sm character-card-action-btn"
-                                th:href="@{/characters/detail/{id}(id=${character.characterId})}">
-                                    <i class="bi bi-eye"></i> View
-                                </a>
-
-                                <a class="btn btn-outline-success btn-sm character-card-action-btn"
-                                th:href="@{/characters/edit/{id}(id=${character.characterId})}">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-
-                                <a class="btn btn-outline-danger btn-sm character-card-action-btn"
-                                th:href="@{/characters/delete/{id}(id=${character.characterId})}"
-                                onclick="return confirm('Delete this character?');">
-                                    <i class="bi bi-trash"></i> Del
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
+                <div th:each="character : ${characters}">
+                    <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>
                 </div>
 
                 <!-- CREATE CHARACTER CARD -->

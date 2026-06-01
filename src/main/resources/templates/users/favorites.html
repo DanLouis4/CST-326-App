@@ -11,28 +11,23 @@
 <body>
     <div layout:fragment="content">
 
-        <h1>Favorite Characters</h1>
-
-        <div class="card mt-3">
-
-            <div class="card-body">
-
-                <h5 class="card-title">
-                    Character Name
-                </h5>
-
-                <p class="card-text">
-                    Character details will appear here.
-                </p>
-
-                <button class="btn btn-danger">
-                    Remove Favorite
-                </button>
-
-            </div>
-
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}">Success message</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
+        <div class="container-fluid">
+
+            
+            <h1>Favorite Characters</h1>
+            
+            <!-- CHARACTER CARDS -->
+            <div th:each="character : ${characters}">
+                <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>
+            </div>
+            
+        </div>
+        
     </div>
 </body>
 </html>

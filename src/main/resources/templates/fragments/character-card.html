@@ -1,0 +1,77 @@
+<!-- Character Card Fragment -->
+
+<div th:fragment="characterCard (cardCharacter)" class="character-card">
+        <img class="character-card-img"
+            th:src="${cardCharacter.imageUrl}"
+            alt="Character image">
+
+        <div class="character-card-overlay">
+            <div class="card-header-area">
+
+                <!-- Badges for visibility and character type -->
+                <div class="character-card-badges">
+                    <span class="badge bg-dark">
+                        <span th:if="${cardCharacter.visibility == 1}">
+                            <i class="bi bi-eye-fill"></i> Public
+                        </span>
+                        <span th:if="${cardCharacter.visibility == 0}">
+                            <span class="text-warning"><i class="bi bi-eye-slash-fill"></i> Private</span>
+                        </span>
+                    </span>
+                    <span class="badge character-badge-player"
+                        th:if="${cardCharacter.characterType == 'Player'}">
+                        <i class="bi bi-person-fill"></i> Player
+                    </span>
+                    <span class="badge character-badge-npc"
+                        th:if="${cardCharacter.characterType == 'NPC'}">
+                        <i class="bi bi-person-badge-fill"></i> NPC
+                    </span>
+                    <span class="badge character-badge-monster"
+                        th:if="${cardCharacter.characterType == 'Monster'}">
+                        <i class="bi bi-bug-fill"></i> Monster
+                    </span>
+                </div>
+
+                <!-- Favorite Button -->
+                    <button class="favorite-btn">
+                        <i class="bi bi-heart"></i>
+                    </button>
+            </div>
+
+            <!-- Card fill for better text visibility -->
+            <div class="card-fill"></div>
+
+            <!-- Character info with name, race, and class -->
+            <a th:href="@{/characters/detail/{id}(id=${cardCharacter.characterId})}" class="character-info">
+                <h3 th:text="${cardCharacter.characterName}">Character Name</h3>
+                <p>
+                    <span th:text="${cardCharacter.race.raceName}">Race</span>
+                    ·
+                    <span th:text="${cardCharacter.characterClass.className}">Class</span>
+                </p>
+            </a>
+
+            <!-- Footer with timestamps and action buttons -->
+            <div class="card-footer-area">
+                <div class="user-info">
+                    Created by <em>User</em> <span th:text="${#temporals.format(cardCharacter.createdAt, 'MMM dd, yyyy')}">Date</span><br>
+                    Last Updated: <span th:text="${#temporals.format(cardCharacter.updatedAt, 'MMM dd, yyyy')}">Date</span>
+                </div>
+                <div class="character-card-actions">
+                    <a class="btn btn-outline-primary btn-sm character-card-action-btn"
+                    th:href="@{/characters/detail/{id}(id=${cardCharacter.characterId})}">
+                        <i class="bi bi-eye"></i> View
+                    </a>
+                    <a class="btn btn-outline-success btn-sm character-card-action-btn"
+                    th:href="@{/characters/edit/{id}(id=${cardCharacter.characterId})}">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm character-card-action-btn"
+                    th:href="@{/characters/delete/{id}(id=${cardCharacter.characterId})}"
+                    onclick="return confirm('Delete this character?');">
+                        <i class="bi bi-trash"></i> Del
+                    </a>
+                </div>
+            </div>    
+        </div>
+</div>
