@@ -202,17 +202,28 @@ body
 
 .favorite-btn
 {
-    height: 40px;
     width: 40px;
-    border-radius: 50%;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: none;
+    border-radius: 50%;
 
     background: rgba(0,0,0,.35);
+    backdrop-filter: blur(4px);
+
     color: white;
-    font-size: 1.4rem;
-    line-height: 1;
 }
 
+.favorite-icon
+{
+    width: 24px;
+    height: 24px;
+    
+}
 .card-fill
 {
     flex: 1;
@@ -397,9 +408,9 @@ body
 }
 
 /**
- *
+ **************************
  *  CHARACTER DETAIL PAGE
- *
+ *************************
  */
 
  .character-detail-wrapper
@@ -416,10 +427,25 @@ body
     margin-bottom: 1rem;
 }
 
-.character-detail-title
+.character-detail-title-row
 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.character-detail-title-row h1
+{
+    margin: 0;
     font-family: Cinzel, serif;
     font-size: 2.5rem;
+}
+
+.character-detail-favorite
+{
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
 }
 
 .character-detail-actions

@@ -18,7 +18,13 @@
         </a>
 
         <div class="character-detail-header">
-            <h1 class="character-detail-title" th:text="${character.characterName}">Character Name</h1>
+            <div class="character-detail-title-row">
+                <h1 th:text="${character.characterName}">Character Name</h1>
+
+                <button class="favorite-btn character-detail-favorite" type="button">
+                    <img th:src="@{/images/icons/heart.svg}" alt="Favorite" class="favorite-icon">
+                </button>
+            </div>
 
             <div class="character-detail-actions">
             <span class="badge border border-secondary text-light">
