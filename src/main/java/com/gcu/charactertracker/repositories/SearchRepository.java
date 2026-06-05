@@ -12,15 +12,21 @@ public interface SearchRepository extends JpaRepository<CharacterEntity, Integer
     @Query("""
         SELECT c FROM CharacterEntity c
         WHERE (:keyword IS NULL OR LOWER(c.characterName) LIKE LOWER(CONCAT('%', :keyword, '%')))
-        AND (:race IS NULL OR c.race = :race)
-        AND (:characterClass IS NULL OR c.characterClass = :characterClass)
+        AND (:race IS NULL
+            OR c.race.raceName = :race)
+
+        AND (:characterClass IS NULL
+            OR c.characterClass.className = :characterClass)
+
+        AND (:classType IS NULL
+            OR c.characterClass.classType = :classType)
     """)
 
     List<CharacterEntity> search(
-        @Param("keyword") String keyword,
-        @Param("race") String race,
-        @Param("characterClass") String characterClass
-    );
+        String keyword,
+        String race,
+        String characterClass,
+        String classType);
 
 
 

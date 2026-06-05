@@ -23,6 +23,7 @@
 
                 <input type="text"
                     name="keyword"
+                    th:value="${keyword}"
                     class="form-control"
                     placeholder="Search characters...">
 
@@ -55,7 +56,8 @@
                         <option value="">All Races</option>
                         <option th:each="race : ${races}"
                                 th:value="${race.raceName}"
-                                th:text="${race.raceName}">
+                                th:text="${race.raceName}"
+                                th:selected="${race.raceName == selectedRace}">
                         </option>
 
                     </select>
@@ -72,7 +74,8 @@
                         <option value="">All Classes</option>
                         <option th:each="characterClass : ${characterClasses}"
                                 th:value="${characterClass.className}"
-                                th:text="${characterClass.className}">
+                                th:text="${characterClass.className}"
+                                th:selected="${classType == selectedClassType}">
                         </option>
                         
                     </select>

@@ -33,8 +33,8 @@ public class SearchController {
     public String searchCharacters(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String race,
-            @RequestParam(required = false)
-            String characterClass,
+            @RequestParam(required = false) String characterClass,
+            @RequestParam(required = false) String classType,
             Model model) {
 
         model.addAttribute(
@@ -42,11 +42,13 @@ public class SearchController {
                 searchService.search(
                         keyword,
                         race,
-                        characterClass));
+                        characterClass,
+                        classType));
 
-        model.addAttribute("races", raceService.getAllRaces());
-        model.addAttribute("characterClasses", classService.getAllClasses());
-        model.addAttribute("classTypes", classService.getDistinctClassTypes());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("selectedRace", race);
+        model.addAttribute("selectedClass", characterClass);
+        model.addAttribute("selectedClassType", classType);
         
         return "search/search";
     }

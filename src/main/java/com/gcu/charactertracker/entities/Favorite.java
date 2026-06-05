@@ -21,10 +21,10 @@ public class Favorite {
     @Column(name = "favorite_id")
     private Integer favoriteId;
 
-    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
     private Integer userId;
 
-    @JoinColumn(name = "character_id")
+    @Column(name = "character_id")
     private Integer characterId;
 
     /* Getters and Setters */

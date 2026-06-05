@@ -15,14 +15,16 @@ public class SearchService {
         this.searchRepository = searchRepository;
     }
 
-    public List<CharacterEntity> search(String keyword, String race, String characterClass) {
-
-        if (keyword == null) keyword = "";
-
-        /* Treat empty strings as null to simplify repository queries For future enhancement */
-        // if (race != null && race.isEmpty()) race = null;
-        // if (characterClass != null && characterClass.isEmpty()) characterClass = null;
-
-        return searchRepository.search(keyword, race, characterClass);
-    }
+    public List<CharacterEntity> search(
+        String keyword,
+        String race,
+        String characterClass,
+        String classType)
+{
+    return searchRepository.search(
+            keyword,
+            race,
+            characterClass,
+            classType);
+}
 }
