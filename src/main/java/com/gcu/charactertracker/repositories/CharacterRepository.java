@@ -29,4 +29,6 @@ public interface CharacterRepository extends JpaRepository<CharacterEntity, Inte
 
     List<CharacterEntity> findByCharacterNameContainingIgnoreCase(String keyword);
 
+    List<CharacterEntity> findByCharacterIdIn(List<Integer> characterIds);
+
 }

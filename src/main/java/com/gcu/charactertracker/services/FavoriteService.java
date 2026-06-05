@@ -34,8 +34,8 @@ public class FavoriteService {
 
             Favorite favorite = new Favorite();
 
-            favorite.setUserId(userId); // Using userId directly since UserEntity is not implemented
-            favorite.setCharacterId(character.getCharacterId());
+            favorite.setUserId(userId);
+            favorite.setCharacterId(characterId);
 
             favoriteRepository.save(favorite);
         }
@@ -46,7 +46,14 @@ public class FavoriteService {
         Integer userId = 1; // Placeholder user ID since UserEntity is not implemented
 
         favoriteRepository
-                .findByUserIdAndCharacterId(userId, character.getCharacterId())
+                .findByUserIdAndCharacterId(userId, characterId)
                 .ifPresent(favoriteRepository::delete);
+    }
+
+    public boolean isFavorite(Integer userId, Integer characterId) {
+
+    return favoriteRepository
+            .findByUserIdAndCharacterId(userId, characterId)
+            .isPresent();
     }
 }

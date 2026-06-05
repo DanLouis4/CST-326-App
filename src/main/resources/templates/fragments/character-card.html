@@ -33,9 +33,14 @@
                 </div>
 
                 <!-- Favorite Button -->
-                    <button class="favorite-btn">
+                <form th:action="@{/users/favorites/add/{id}(id=${cardCharacter.characterId})}"
+                      method="post">
+
+                    <button type="submit" class="favorite-btn">
                         <img th:src="@{/images/icons/heart.svg}" alt="Favorite" class="favorite-icon">
                     </button>
+
+                </form>
             </div>
 
             <!-- Card fill for better text visibility -->
