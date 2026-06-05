@@ -23,10 +23,10 @@ public interface SearchRepository extends JpaRepository<CharacterEntity, Integer
     """)
 
     List<CharacterEntity> search(
-        String keyword,
-        String race,
-        String characterClass,
-        String classType);
+        @Param("keyword") String keyword,
+        @Param("race") String race,
+        @Param("characterClass") String characterClass,
+        @Param("classType") String classType);
 
 
 

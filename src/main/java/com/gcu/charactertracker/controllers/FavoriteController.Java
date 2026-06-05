@@ -50,21 +50,25 @@ public class FavoriteController {
     }
 
     @PostMapping("/add/{characterId}")
-    public String addFavorite(@PathVariable Integer characterId) {
-       
-        Integer userId = 1; // Placeholder user ID since UserEntity is not implemented
-        favoriteService.addFavorite(userId, characterId);
-        
-        return "redirect:/characters";
+    public void addFavorite(Integer userId, Integer characterId)
+{
+    if (favoriteRepository
+            .findByUserIdAndCharacterId(userId, characterId)
+            .isEmpty())
+    {
+        Favorite favorite = new Favorite();
+
+        favorite.setUserId(userId);
+        favorite.setCharacterId(characterId);
+
+        favoriteRepository.save(favorite);
     }
+}
 
     @PostMapping("/remove/{characterId}")
-    public String removeFavorite(@PathVariable Integer characterId)
-    {
-        Integer userId = 1; // Placeholder user ID since UserEntity is not implemented
-        favoriteService.removeFavorite(userId, characterId);
-        
-        return "redirect:/characters";
-    }
-    
+    public void removeFavorite(Integer userId, Integer characterId)
+{
+    favoriteRepository
+            .findByUserIdAndCharacterId(userId, characterId)
+            .ifPresent(favoriteRepository::delete);
 }

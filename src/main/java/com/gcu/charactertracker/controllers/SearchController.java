@@ -49,6 +49,8 @@ public class SearchController {
         model.addAttribute("selectedRace", race);
         model.addAttribute("selectedClass", characterClass);
         model.addAttribute("selectedClassType", classType);
+        model.addAttribute("races", raceService.getAllRaces());
+        model.addAttribute("classes", classService.getAllClasses());
         
         return "search/search";
     }
