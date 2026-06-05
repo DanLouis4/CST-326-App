@@ -19,12 +19,28 @@ public class SearchService {
         String keyword,
         String race,
         String characterClass,
-        String classType)
-{
+        String classType) {
+
+    if (keyword != null && keyword.isBlank()) {
+        keyword = null;
+    }
+
+    if (race != null && race.isBlank()) {
+        race = null;
+    }
+
+    if (characterClass != null && characterClass.isBlank()) {
+        characterClass = null;
+    }
+
+    if (classType != null && classType.isBlank()) {
+        classType = null;
+    }
+
     return searchRepository.search(
             keyword,
             race,
             characterClass,
             classType);
-}
+    }
 }

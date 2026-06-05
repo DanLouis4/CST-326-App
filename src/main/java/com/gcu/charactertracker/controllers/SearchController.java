@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gcu.charactertracker.services.ClassService;
-import com.gcu.charactertracker.services.RaceService;
 import com.gcu.charactertracker.services.SearchService;
 
 
@@ -16,17 +14,11 @@ import com.gcu.charactertracker.services.SearchService;
 public class SearchController {
 
     private final SearchService searchService;
-    private final ClassService classService;
-    private final RaceService raceService;
 
     public SearchController(
-            SearchService searchService,
-            ClassService classService,
-            RaceService raceService) {
+            SearchService searchService) {
 
         this.searchService = searchService;
-        this.classService = classService;
-        this.raceService = raceService;
     }
 
     @GetMapping
@@ -34,24 +26,23 @@ public class SearchController {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String race,
             @RequestParam(required = false) String characterClass,
-            @RequestParam(required = false) String classType,
-            Model model) {
+            @RequestParam(required = false) String classType,Model model) 
+            {
 
-        model.addAttribute(
-                "characters",
-                searchService.search(
-                        keyword,
-                        race,
-                        characterClass,
-                        classType));
+                model.addAttribute(
+                        "characters",
+                        searchService.search(
+                                keyword,
+                                race,
+                                characterClass,
+                                classType));
 
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("selectedRace", race);
-        model.addAttribute("selectedClass", characterClass);
-        model.addAttribute("selectedClassType", classType);
-        model.addAttribute("races", raceService.getAllRaces());
-        model.addAttribute("classes", classService.getAllClasses());
-        
-        return "search/search";
-    }
+                model.addAttribute("keyword", keyword);
+                model.addAttribute("selectedRace", race);
+                model.addAttribute("selectedClass", characterClass);
+                model.addAttribute("selectedClassType", classType);
+                
+                
+                return "search/search";
+            }
 }

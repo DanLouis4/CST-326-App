@@ -13,85 +13,73 @@
 
         <h1>Character Filters</h1>
 
-        <form>
+        <form th:action="@{/search}" method="get">
 
             <div class="mb-3">
+                <label class="form-label">Race</label>
 
-                <label class="form-label">
-                    Race
-                </label>
-
-                <select class="form-select">
-                    <option>All</option>
-                    <option>Human</option>
-                    <option>Elf</option>
-                    <option>Dwarf</option>
-                    <option>Orc</option>
-                    <option>Goblin</option>
-                    <option>Angelborn</option>
-                    <option>Demonspawn</option>
-                    <option>Other</option>
+                <select class="form-select" name="race">
+                    <option value="">All</option>
+                    <option value="Human">Human</option>
+                    <option value="Elf">Elf</option>
+                    <option value="Dwarf">Dwarf</option>
+                    <option value="Orc">Orc</option>
+                    <option value="Goblin">Goblin</option>
+                    <option value="Angelborn">Angelborn</option>
+                    <option value="Demonspawn">Demonspawn</option>
+                    <option value="Other">Other</option>
                 </select>
-
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Class</label>
 
-                <label class="form-label">
-                    Class
-                </label>
-
-                <select class="form-select">
-                    <option>All</option>
-                    <option>Classless</option>
-                    <option>Knight</option>
-                    <option>Warrior</option>
-                    <option>Paladin</option>
-                    <option>Beserker</option>
-                    <option>Monk</option>
-                    <option>Ranger</option>
-                    <option>Thief</option>
-                    <option>Ninja</option>
-                    <option>Assassin</option>
-                    <option>Pirate</option>
-                    <option>Wizard</option>
-                    <option>Cleric</option>
-                    <option>Sorcerer</option>
-                    <option>Sorceress</option>
-                    <option>Warlock</option>
-                    <option>Witch</option>
-                    <option>Farmer</option>
-                    <option>Blacksmith</option>
-                    <option>Merchant</option>
-                    <option>Innkeeper</option>
-                    <option>Guard</option>
-                    <option>Royalty</option>
-                    <option>Lord</option>
-                    <option>Lady</option>
-                    <option>Governor</option>
-                    <option>Magistrate</option>
+                <select class="form-select" name="characterClass">
+                    <option value="">All</option>
+                    <option value="Classless">Classless</option>
+                    <option value="Knight">Knight</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Beserker">Beserker</option>
+                    <option value="Monk">Monk</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Thief">Thief</option>
+                    <option value="Ninja">Ninja</option>
+                    <option value="Assassin">Assassin</option>
+                    <option value="Pirate">Pirate</option>
+                    <option value="Wizard">Wizard</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Sorcerer">Sorcerer</option>
+                    <option value="Sorceress">Sorceress</option>
+                    <option value="Warlock">Warlock</option>
+                    <option value="Witch">Witch</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Blacksmith">Blacksmith</option>
+                    <option value="Merchant">Merchant</option>
+                    <option value="Innkeeper">Innkeeper</option>
+                    <option value="Guard">Guard</option>
+                    <option value="Royalty">Royalty</option>
+                    <option value="Lord">Lord</option>
+                    <option value="Lady">Lady</option>
+                    <option value="Governor">Governor</option>
+                    <option value="Magistrate">Magistrate</option>
                 </select>
-
             </div>
 
-            <div>
+            <div class="mb-3">
+                <label class="form-label">Class-Type</label>
 
-                <label class="form-label">
-                    Class-Type
-                </label>
-
-                <select class="form-select">
-                    <option>All Class-Type</option>
-                    <option>Fighter</option>
-                    <option>Rogue</option>
-                    <option>Spellcaster</option>
-                    <option>Commoner</option>
-                    <option>Noble</option>
+                <select class="form-select" name="classType">
+                    <option value="">All Class-Type</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Spellcaster">Spellcaster</option>
+                    <option value="Commoner">Commoner</option>
+                    <option value="Noble">Noble</option>
                 </select>
-
             </div>
 
-            <button class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
                 Apply Filter
             </button>
 

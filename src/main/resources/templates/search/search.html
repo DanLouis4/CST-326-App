@@ -36,6 +36,11 @@
 
             </div>
 
+            <div class="filter-header text-center mb-4">
+                <h2 class="cinzel-regular mb-2">Filter Search</h2>
+                <p class="mb-4">Modify your search with pre-set filters</p>
+            </div>
+
         </form>
 
         <form th:action="@{/search}" method="get">
@@ -47,66 +52,70 @@
             <div class="row">
 
                 <div class="col-md-4">
-
                     <label>Race</label>
 
-                    <select class="form-select"
-                            name="race">
-
+                    <select class="form-select" name="race">
                         <option value="">All Races</option>
-                        <option th:each="race : ${races}"
-                                th:value="${race.raceName}"
-                                th:text="${race.raceName}"
-                                th:selected="${race.raceName == selectedRace}">
-                        </option>
-
+                        <option value="Human" th:selected="${selectedRace == 'Human'}">Human</option>
+                        <option value="Elf" th:selected="${selectedRace == 'Elf'}">Elf</option>
+                        <option value="Dwarf" th:selected="${selectedRace == 'Dwarf'}">Dwarf</option>
+                        <option value="Orc" th:selected="${selectedRace == 'Orc'}">Orc</option>
+                        <option value="Goblin" th:selected="${selectedRace == 'Goblin'}">Goblin</option>
+                        <option value="Angelborn" th:selected="${selectedRace == 'Angelborn'}">Angelborn</option>
+                        <option value="Demonspawn" th:selected="${selectedRace == 'Demonspawn'}">Demonspawn</option>
+                        <option value="Other" th:selected="${selectedRace == 'Other'}">Other</option>
                     </select>
-
                 </div>
 
                 <div class="col-md-4">
-
                     <label>Class</label>
 
-                    <select class="form-select"
-                            name="characterClass">
-
+                    <select class="form-select" name="characterClass">
                         <option value="">All Classes</option>
-                        <option th:each="characterClass : ${characterClasses}"
-                                th:value="${characterClass.className}"
-                                th:text="${characterClass.className}"
-                                th:selected="${classType == selectedClassType}">
-                        </option>
-                        
+                        <option value="Classless" th:selected="${selectedClass == 'Classless'}">Classless</option>
+                        <option value="Knight" th:selected="${selectedClass == 'Knight'}">Knight</option>
+                        <option value="Warrior" th:selected="${selectedClass == 'Warrior'}">Warrior</option>
+                        <option value="Paladin" th:selected="${selectedClass == 'Paladin'}">Paladin</option>
+                        <option value="Beserker" th:selected="${selectedClass == 'Beserker'}">Beserker</option>
+                        <option value="Monk" th:selected="${selectedClass == 'Monk'}">Monk</option>
+                        <option value="Ranger" th:selected="${selectedClass == 'Ranger'}">Ranger</option>
+                        <option value="Thief" th:selected="${selectedClass == 'Thief'}">Thief</option>
+                        <option value="Ninja" th:selected="${selectedClass == 'Ninja'}">Ninja</option>
+                        <option value="Assassin" th:selected="${selectedClass == 'Assassin'}">Assassin</option>
+                        <option value="Pirate" th:selected="${selectedClass == 'Pirate'}">Pirate</option>
+                        <option value="Wizard" th:selected="${selectedClass == 'Wizard'}">Wizard</option>
+                        <option value="Cleric" th:selected="${selectedClass == 'Cleric'}">Cleric</option>
+                        <option value="Sorcerer" th:selected="${selectedClass == 'Sorcerer'}">Sorcerer</option>
+                        <option value="Sorceress" th:selected="${selectedClass == 'Sorceress'}">Sorceress</option>
+                        <option value="Warlock" th:selected="${selectedClass == 'Warlock'}">Warlock</option>
+                        <option value="Witch" th:selected="${selectedClass == 'Witch'}">Witch</option>
+                        <option value="Farmer" th:selected="${selectedClass == 'Farmer'}">Farmer</option>
+                        <option value="Blacksmith" th:selected="${selectedClass == 'Blacksmith'}">Blacksmith</option>
+                        <option value="Merchant" th:selected="${selectedClass == 'Merchant'}">Merchant</option>
+                        <option value="Innkeeper" th:selected="${selectedClass == 'Innkeeper'}">Innkeeper</option>
+                        <option value="Guard" th:selected="${selectedClass == 'Guard'}">Guard</option>
+                        <option value="Royalty" th:selected="${selectedClass == 'Royalty'}">Royalty</option>
+                        <option value="Lord" th:selected="${selectedClass == 'Lord'}">Lord</option>
+                        <option value="Lady" th:selected="${selectedClass == 'Lady'}">Lady</option>
+                        <option value="Governor" th:selected="${selectedClass == 'Governor'}">Governor</option>
+                        <option value="Magistrate" th:selected="${selectedClass == 'Magistrate'}">Magistrate</option>
                     </select>
-
                 </div>
 
                 <div class="col-md-4">
-
                     <label>Class-Type</label>
 
-                    <select class="form-select"
-                            name="classType">
-
+                    <select class="form-select" name="classType">
                         <option value="">All Class-Type</option>
-                        <option th:each="classType : ${classTypes}"
-                                th:value="${classType}"
-                                th:text="${classType}">
-                        </option>
-
+                        <option value="Fighter" th:selected="${selectedClassType == 'Fighter'}">Fighter</option>
+                        <option value="Rogue" th:selected="${selectedClassType == 'Rogue'}">Rogue</option>
+                        <option value="Spellcaster" th:selected="${selectedClassType == 'Spellcaster'}">Spellcaster</option>
+                        <option value="Commoner" th:selected="${selectedClassType == 'Commoner'}">Commoner</option>
+                        <option value="Noble" th:selected="${selectedClassType == 'Noble'}">Noble</option>
                     </select>
-
-
                 </div>
 
             </div>
-
-            <button class="btn btn-secondary mt-3">
-
-                Apply Filters
-
-            </button>
 
         </form>
         </div>
