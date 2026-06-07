@@ -6,11 +6,11 @@
  * 
  * @author Daniel Louis
  * @version 1.0
- * 
  */
 package com.gcu.charactertracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,16 +28,10 @@ import com.gcu.charactertracker.services.RaceService;
 
 import jakarta.validation.Valid;
 
-/**
- * The CharacterController class is responsible for handling web requests related to character management.
- * It provides methods for displaying a list of characters, showing forms for creating and editing characters,
- * and processing form submissions to create or update character records in the database.
- * The controller interacts with the CharacterService, RaceService, and ClassService to perform business logic and data access operations.
- */
 @Controller
 @RequestMapping("/characters")
-public class CharacterController 
-{
+public class CharacterController {
+
     @Autowired
     private CharacterService characterService;
 
@@ -47,26 +41,15 @@ public class CharacterController
     @Autowired
     private ClassService classService;
 
-    /**
-     * Displays a list of all characters.
-     * @param model the Model object to pass data to the view
-     * @return the name of the view template to render
-     */
     @GetMapping
-    public String showCharacters(Model model)
-    {
+    public String showCharacters(Model model) {
         model.addAttribute("characters", characterService.getAllCharacters());
         return "characters/characters";
     }
 
-    /**
-     * Displays the form for creating a new character.
-     * @param model the Model object to pass data to the view
-     * @return the name of the view template to render
-     */
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String showCreateForm(Model model)
-    {
+    public String showCreateForm(Model model) {
         model.addAttribute("character", new CharacterEntity());
         model.addAttribute("races", raceService.getAllRaces());
         model.addAttribute("characterClasses", classService.getAllClasses());
@@ -74,25 +57,22 @@ public class CharacterController
         return "characters/character-create";
     }
 
-    /**
-     * Processes the form submission for creating a new character.
-     * @param character the CharacterEntity object populated from the form
-     * @param bindingResult the BindingResult object to check for validation errors
-     * @param model the Model object to pass data to the view
-     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
-     * @return a redirect to the list of characters
-     */
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String createCharacter(@Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
-    {
+    public String createCharacter(
+            @Valid @ModelAttribute("character") CharacterEntity character,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
             model.addAttribute("characterClasses", classService.getAllClasses());
             return "characters/character-create";
         }
 
-        character.setFlagged(false); // Set default value for flagged field at creation
-        character.setUserId(1); // Set default user ID for the character until user authentication is implemented
+        character.setFlagged(false);
+        character.setUserId(1);
         characterService.saveCharacter(character);
 
         redirectAttributes.addFlashAttribute("successMessage", "Character created successfully.");
@@ -100,19 +80,11 @@ public class CharacterController
         return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
-    /**
-     * Displays the details of a specific character.
-     * @param id the ID of the character
-     * @param model the Model object to pass data to the view
-     * @return the name of the view template to render
-     */
     @GetMapping("/detail/{id}")
-    public String showCharacterDetail(@PathVariable Integer id, Model model)
-    {
+    public String showCharacterDetail(@PathVariable Integer id, Model model) {
         CharacterEntity character = characterService.getCharacterById(id);
 
-        if (character == null)
-        {
+        if (character == null) {
             return "redirect:/characters";
         }
 
@@ -120,76 +92,65 @@ public class CharacterController
         return "characters/character-detail";
     }
 
-    /**
-     * Displays the form for editing an existing character.
-     * @param id the ID of the character
-     * @param model the Model object to pass data to the view
-     * @return the name of the view template to render
-     */
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Integer id, Model model)
-    {
+    public String showEditForm(@PathVariable Integer id, Model model) {
         CharacterEntity character = characterService.getCharacterById(id);
 
-        if (character == null)
-        {
+        if (character == null) {
             return "redirect:/characters";
         }
 
         model.addAttribute("character", character);
         model.addAttribute("races", raceService.getAllRaces());
         model.addAttribute("characterClasses", classService.getAllClasses());
+
         return "characters/character-edit";
     }
 
-    /**
-     * Processes the form submission for updating an existing character.
-     * @param id the ID of the character
-     * @param character the CharacterEntity object populated from the form
-     * @param bindingResult the BindingResult object to check for validation errors
-     * @param model the Model object to pass data to the view
-     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
-     * @return a redirect to the list of characters
-     */
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit/{id}")
-    public String updateCharacter(@PathVariable Integer id, @Valid @ModelAttribute("character") CharacterEntity character, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
-    {
+    public String updateCharacter(
+            @PathVariable Integer id,
+            @Valid @ModelAttribute("character") CharacterEntity character,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
             model.addAttribute("characterClasses", classService.getAllClasses());
             return "characters/character-edit";
         }
-        
+
         CharacterEntity existingCharacter = characterService.getCharacterById(id);
 
-        /* Check if the character exists */
-        if (existingCharacter == null)
-        {
+        if (existingCharacter == null) {
             return "redirect:/characters";
         }
 
-        /* Preserve the original values for fields that should not be changed  */
-        character.setUserId(existingCharacter.getUserId()); // Preserve the original user ID
-        character.setCharacterId(id); // Ensure the character ID is set for the update operation
-        character.setFlagged(existingCharacter.getFlagged()); // Preserve the original flagged status
-        character.setCreatedAt(existingCharacter.getCreatedAt()); // Preserve the original creation timestamp
+        character.setUserId(existingCharacter.getUserId());
+        character.setCharacterId(id);
+        character.setFlagged(existingCharacter.getFlagged());
+        character.setCreatedAt(existingCharacter.getCreatedAt());
 
         characterService.saveCharacter(character);
+
         redirectAttributes.addFlashAttribute("successMessage", "Character updated successfully.");
+
         return "redirect:/characters/detail/" + character.getCharacterId();
     }
 
-    /**
-     * Deletes a character by its ID.
-     * @param id the ID of the character to delete
-     * @param redirectAttributes the RedirectAttributes object to pass flash attributes
-     * @return a redirect to the list of characters
-     */
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String deleteCharacter(@PathVariable Integer id, RedirectAttributes redirectAttributes)
-    {
+    public String deleteCharacter(
+            @PathVariable Integer id,
+            RedirectAttributes redirectAttributes) {
+
         characterService.deleteCharacter(id);
+
         redirectAttributes.addFlashAttribute("successMessage", "Character deleted successfully.");
+
         return "redirect:/characters";
     }
 }

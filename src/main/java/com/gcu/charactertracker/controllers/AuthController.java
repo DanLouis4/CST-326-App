@@ -19,25 +19,16 @@ public class AuthController {
         this.userService = userService;
     }
 
-    /**
-     * Display Login Page
-     */
     @GetMapping("/login")
     public String loginPage() {
         return "auth/login";
     }
 
-    /**
-     * Display Registration Page
-     */
     @GetMapping("/register")
     public String registerPage() {
         return "auth/register";
     }
 
-    /**
-     * Process Registration Form
-     */
     @PostMapping("/register")
     public String registerUser(
             @RequestParam String username,
@@ -47,7 +38,11 @@ public class AuthController {
             @RequestParam String role,
             Model model) {
 
-        // Verify passwords match
+        System.out.println("REGISTER FORM SUBMITTED");
+        System.out.println("Username: " + username);
+        System.out.println("Email: " + email);
+        System.out.println("Role: " + role);
+
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match.");
             return "auth/register";
@@ -55,19 +50,13 @@ public class AuthController {
 
         try {
             userService.registerUser(username, email, password, role);
+            System.out.println("USER REGISTERED SUCCESSFULLY");
+            return "redirect:/auth/login?registered=true";
 
-            model.addAttribute(
-                "success",
-                "Account created successfully. Please log in."
-            );
-
-            return "auth/login";
-
-        } catch (IllegalArgumentException ex) {
-
-            model.addAttribute("error", ex.getMessage());
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            model.addAttribute("error", "Registration failed: " + ex.getMessage());
             return "auth/register";
         }
     }
-}
+};

@@ -15,22 +15,21 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Integer userId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private RoleEntity role;
-
-    // Getters and Setters
 
     public Integer getUserId() {
         return userId;
@@ -55,7 +54,7 @@ public class UserEntity {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -71,4 +70,4 @@ public class UserEntity {
     public void setRole(RoleEntity role) {
         this.role = role;
     }
-}
+};
