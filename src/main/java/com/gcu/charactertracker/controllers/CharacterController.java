@@ -11,6 +11,7 @@ package com.gcu.charactertracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,15 +23,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gcu.charactertracker.entities.CharacterEntity;
+import com.gcu.charactertracker.entities.UserEntity;
 import com.gcu.charactertracker.services.CharacterService;
 import com.gcu.charactertracker.services.ClassService;
 import com.gcu.charactertracker.services.RaceService;
+import com.gcu.charactertracker.services.UserService;
 
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/characters")
 public class CharacterController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CharacterService characterService;
@@ -63,7 +69,8 @@ public class CharacterController {
             @Valid @ModelAttribute("character") CharacterEntity character,
             BindingResult bindingResult,
             Model model,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            Authentication authentication) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("races", raceService.getAllRaces());
@@ -71,8 +78,13 @@ public class CharacterController {
             return "characters/character-create";
         }
 
+        String username = authentication.getName();
+
+        UserEntity loggedInUser = userService.getUserByUsername(username);
+
         character.setFlagged(false);
-        character.setUserId(1);
+        character.setUserId(loggedInUser.getUserId());
+
         characterService.saveCharacter(character);
 
         redirectAttributes.addFlashAttribute("successMessage", "Character created successfully.");

@@ -52,4 +52,10 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public UserEntity getUserByUsername(String username) {
+    return userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Logged-in user not found."));
+    }
+    
 };

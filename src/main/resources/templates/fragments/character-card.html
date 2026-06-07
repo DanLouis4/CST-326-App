@@ -54,7 +54,8 @@
             <!-- Footer with timestamps and action buttons -->
             <div class="card-footer-area">
                 <div class="user-info">
-                    Created by <em>User</em> <span th:text="${#temporals.format(cardCharacter.createdAt, 'MMM dd, yyyy')}">Date</span><br>
+                    Created by <em><span th:text="${cardCharacter.creator != null ? cardCharacter.creator.username : 'Unknown'}">  Unknown </span></em> 
+                        <span th:text="${#temporals.format(cardCharacter.createdAt, 'MMM dd, yyyy')}">Date</span><br>
                     Last Updated: <span th:text="${#temporals.format(cardCharacter.updatedAt, 'MMM dd, yyyy')}">Date</span>
                 </div>
                 <div class="character-card-actions">
