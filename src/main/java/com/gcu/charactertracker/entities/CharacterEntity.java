@@ -65,6 +65,10 @@ public class CharacterEntity
     @Column(name = "user_id")
     private Integer userId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private UserEntity creator;
+
     @Column(name = "race_id")
     @NotNull(message = "Please select a race")
     private Integer raceId;
@@ -244,6 +248,26 @@ public class CharacterEntity
     public void setUserId(Integer userId) 
     {
         this.userId = userId;
+    }
+
+    /**
+     * Gets the creator entity.
+     * 
+     * @return the creator entity
+     */
+    public UserEntity getCreator() 
+    {
+        return creator;
+    }
+
+    /**
+     * Sets the creator entity.
+     * 
+     * @param creator the creator entity to set
+     */
+    public void setCreator(UserEntity creator) 
+    {
+        this.creator = creator;
     }
 
     /**

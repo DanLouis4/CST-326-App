@@ -15,13 +15,16 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository,
+                       RoleRepository roleRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public UserEntity registerUser(String username, String email, String password, String roleName) {
+
         if (userRepository.existsByUsername(username)) {
             throw new IllegalArgumentException("Username already exists.");
         }
@@ -35,7 +38,11 @@ public class UserService {
         }
 
         RoleEntity role = roleRepository.findByRoleName(roleName)
-                .orElseThrow(() -> new IllegalArgumentException("Role not found."));
+                .orElseGet(() -> {
+                    RoleEntity newRole = new RoleEntity();
+                    newRole.setRoleName(roleName);
+                    return roleRepository.save(newRole);
+                });
 
         UserEntity user = new UserEntity();
         user.setUsername(username);
@@ -45,4 +52,10 @@ public class UserService {
 
         return userRepository.save(user);
     }
-}
+
+    public UserEntity getUserByUsername(String username) {
+    return userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Logged-in user not found."));
+    }
+    
+};
