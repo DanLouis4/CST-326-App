@@ -1,6 +1,14 @@
 <!-- Character Card Fragment -->
 
-<div th:fragment="characterCard (cardCharacter)" class="character-card">
+<!-- Checks to see if the authenticated user is the creator of the character -->
+<div th:fragment="characterCard (cardCharacter)"
+     class="character-card"
+     th:with="isFavorited=${favoriteCharacterIds != null and #lists.contains(favoriteCharacterIds, cardCharacter.characterId)}"
+     th:classappend="${#authorization.expression('isAuthenticated()') 
+                    and cardCharacter.creator != null 
+                    and cardCharacter.creator.username == #authentication.name}
+                    ? ' character-card-owned' : ''">
+
         <img class="character-card-img"
             th:src="${cardCharacter.imageUrl}"
             alt="Character image">
@@ -10,12 +18,12 @@
 
                 <!-- Badges for visibility and character type -->
                 <div class="character-card-badges">
-                    <span class="badge bg-dark">
+                    <span class="badge bg-light">
                         <span th:if="${cardCharacter.visibility == 1}">
-                            <i class="bi bi-eye-fill"></i> Public
+                            <span class="text-dark"><i class="bi bi-eye-fill"></i> Public</span>
                         </span>
                         <span th:if="${cardCharacter.visibility == 0}">
-                            <span class="text-warning"><i class="bi bi-eye-slash-fill"></i> Private</span>
+                            <span class="text-danger"><i class="bi bi-eye-slash-fill"></i> Private</span>
                         </span>
                     </span>
                     <span class="badge character-badge-player"
@@ -33,11 +41,23 @@
                 </div>
 
                 <!-- Favorite Button -->
-                <form th:action="@{/users/favorites/add/{id}(id=${cardCharacter.characterId})}"
-                      method="post">
+                <form class="favorite-form"
+                    th:action="@{/users/favorites/toggle/{id}(id=${cardCharacter.characterId})}"
+                    method="post"
+                    th:if="${#authorization.expression('isAuthenticated()')}">
 
-                    <button type="submit" class="favorite-btn">
-                        <img th:src="@{/images/icons/heart.svg}" alt="Favorite" class="favorite-icon">
+                    <input type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}" />
+
+                    <button type="submit"
+                            class="favorite-btn"
+                            th:classappend="${isFavorited} ? ' is-favorite' : ''"
+                            th:attr="aria-pressed=${isFavorited}">
+
+                        <i class="bi"
+                        th:classappend="${isFavorited} ? ' bi-heart-fill' : ' bi-heart'"></i>
+
                     </button>
 
                 </form>
@@ -59,24 +79,36 @@
             <!-- Footer with timestamps and action buttons -->
             <div class="card-footer-area">
                 <div class="user-info">
-                    Created by <em><span th:text="${cardCharacter.creator != null ? cardCharacter.creator.username : 'Unknown'}">  Unknown </span></em> 
-                        <span th:text="${#temporals.format(cardCharacter.createdAt, 'MMM dd, yyyy')}">Date</span><br>
+                    By <span th:text="${cardCharacter.creator != null ? cardCharacter.creator.username : 'Unknown'}">  Unknown </span><br>
+                    Created: <span th:text="${#temporals.format(cardCharacter.createdAt, 'MMM dd, yyyy')}">Date</span><br>
                     Last Updated: <span th:text="${#temporals.format(cardCharacter.updatedAt, 'MMM dd, yyyy')}">Date</span>
                 </div>
+
+                <!-- Action buttons: View, Edit, Delete (Edit/Delete only for creator) -->
                 <div class="character-card-actions">
+
                     <a class="btn btn-outline-primary btn-sm character-card-action-btn"
                     th:href="@{/characters/detail/{id}(id=${cardCharacter.characterId})}">
                         <i class="bi bi-eye"></i> View
                     </a>
-                    <a class="btn btn-outline-success btn-sm character-card-action-btn"
-                    th:href="@{/characters/edit/{id}(id=${cardCharacter.characterId})}">
-                        <i class="bi bi-pencil-square"></i> Edit
-                    </a>
-                    <a class="btn btn-outline-danger btn-sm character-card-action-btn"
-                    th:href="@{/characters/delete/{id}(id=${cardCharacter.characterId})}"
-                    onclick="return confirm('Delete this character?');">
-                        <i class="bi bi-trash"></i> Del
-                    </a>
+
+                    <th:block th:if="${#authorization.expression('isAuthenticated()') 
+                                    and cardCharacter.creator != null 
+                                    and cardCharacter.creator.username == #authentication.name}">
+
+                        <a class="btn btn-outline-success btn-sm character-card-action-btn"
+                        th:href="@{/characters/edit/{id}(id=${cardCharacter.characterId})}">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+
+                        <a class="btn btn-outline-danger btn-sm character-card-action-btn"
+                        th:href="@{/characters/delete/{id}(id=${cardCharacter.characterId})}"
+                        onclick="return confirm('Delete this character?');">
+                            <i class="bi bi-trash"></i> Del
+                        </a>
+
+                    </th:block>
+
                 </div>
             </div>    
         </div>

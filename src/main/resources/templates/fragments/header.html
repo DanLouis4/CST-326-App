@@ -1,4 +1,7 @@
-<header th:fragment="header">
+<header 
+    th:fragment="header"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Character Tracker</a>
@@ -21,13 +24,22 @@
 
                     <!-- Right side links -->
                     <!-- User Not Signed In -->
-					<ul class="navbar-nav ms-auto" th:if="${session.user == null}">
-						<li class="nav-item"><a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
-						<li class="nav-item"><a class="nav-link" href="/auth/register"><i class="bi bi-person-plus"></i> Register</a></li>
+					<ul class="navbar-nav ms-auto" sec:authorize="isAnonymous()">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/auth/login}">
+								<i class="bi bi-box-arrow-in-right"></i> Login
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/auth/register}">
+								<i class="bi bi-person-plus"></i> Register
+							</a>
+						</li>
 					</ul>
 
                     <!-- User Signed In -->
-					<ul class="navbar-nav ms-auto" th:if="${session.user != null}">
+					<ul class="navbar-nav ms-auto" sec:authorize="isAuthenticated()">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle"
 							href="#"
@@ -36,24 +48,50 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false">
 
-								Welcome, <span th:text="${session.user.username}"></span>
+								Welcome, <span th:text="${#authentication.name}"></span>
 							</a>
 
                             <!-- User Dropdown Menu -->
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+							<ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
 								
-								<li>
-									<a class="dropdown-item disabled" href="#"><i class="bi bi-gear-fill"></i> Profile</a>
+								<li sec:authorize="hasAnyRole('GM', 'ADMIN')">
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-map-fill"></i> My Campaigns</a>
 								</li>
 
 								<li>
-									<a class="dropdown-item disabled" href="#"><i class="bi bi-heart-fill"></i> Favorites</a>
+									<a class="dropdown-item" th:href="@{/characters/my}"><i class="bi bi-person-fill"></i> My Characters</a>
 								</li>
 
+								<li>
+									<a class="dropdown-item" th:href="@{/users/favorites}"><i class="bi bi-heart-fill"></i> My Favorites</a>
+								</li>
+								
 								<li><hr class="dropdown-divider"></li>
 
 								<li>
-									<a class="dropdown-item text-danger" href="/auth/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-person-fill-gear"></i> My Profile</a>
+								</li>
+
+								<li>
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-gear-fill"></i> Account Settings</a>
+								</li>
+								
+								<li><hr class="dropdown-divider"></li>
+
+								<li sec:authorize="hasRole('ADMIN')">
+									<a class="dropdown-item disabled" href="#"><i class="bi bi-shield-lock-fill"></i> Admin Controls</a>
+								</li>
+
+								<li><hr class="dropdown-divider"></li>
+								
+								<li>
+									<form th:action="@{/auth/logout}" method="post" class="m-0">
+
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+										<button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i> Logout</button>
+
+									</form>
 								</li>
 
 							</ul>

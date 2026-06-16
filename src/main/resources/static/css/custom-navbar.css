@@ -1,0 +1,28 @@
+/**
+ *
+ *  NAVBAR STYLES
+ *
+ */
+
+
+ /* Dropdown Menu Styles */
+ 
+.user-dropdown-menu .dropdown-item
+{
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+}
+
+.user-dropdown-menu .dropdown-item i
+{
+    font-size: 0.85rem;
+    margin-right: 0.35rem;
+}
+
+.user-dropdown-menu .dropdown-divider
+{
+    margin: 0.25rem 0;
+    opacity: 0.25;
+}

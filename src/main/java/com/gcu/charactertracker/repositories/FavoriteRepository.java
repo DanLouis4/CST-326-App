@@ -4,15 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import com.gcu.charactertracker.entities.Favorite;
+import com.gcu.charactertracker.entities.FavoriteEntity;
 
-@Repository
-public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
+public interface FavoriteRepository extends JpaRepository<FavoriteEntity, Integer> {
 
-    List<Favorite> findByUserId(Integer userId);
+    List<FavoriteEntity> findByUserId(Integer userId);
 
-    Optional<Favorite> findByUserIdAndCharacterId(Integer userId, Integer characterId);
-
+    Optional<FavoriteEntity> findByUserIdAndCharacterId(Integer userId, Integer characterId);
+    
 }

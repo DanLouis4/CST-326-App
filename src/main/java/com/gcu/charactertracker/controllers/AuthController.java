@@ -30,6 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @SuppressWarnings("CallToPrintStackTrace")
     public String registerUser(
             @RequestParam String username,
             @RequestParam String email,

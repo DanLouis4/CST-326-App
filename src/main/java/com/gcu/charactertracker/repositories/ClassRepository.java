@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import com.gcu.charactertracker.entities.ClassEntity;
 
@@ -23,7 +22,6 @@ import com.gcu.charactertracker.entities.ClassEntity;
  * on ClassEntity objects. It extends JpaRepository, which provides built-in
  * methods for common database operations such as save, findById, findAll, and delete.
  */
-@Repository
 public interface ClassRepository extends JpaRepository<ClassEntity, Integer> 
 {
 

@@ -114,7 +114,15 @@
         
         <div class="container-fluid">
 
-            <div class="character-grid mt-4">
+            <section th:if="${#lists.isEmpty(characters)}"
+                    class="search-no-results">
+
+                <h2>No results found.</h2>
+
+            </section>
+
+            <div th:unless="${#lists.isEmpty(characters)}"
+                class="character-grid mt-4">
                 
                 <th:block th:each="character : ${characters}">
                     <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>

@@ -11,7 +11,6 @@
 package com.gcu.charactertracker.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import com.gcu.charactertracker.entities.RaceEntity;
 
@@ -20,7 +19,7 @@ import com.gcu.charactertracker.entities.RaceEntity;
  * on RaceEntity objects. It extends JpaRepository, which provides built-in
  * methods for common database operations such as save, findById, findAll, and delete.
  */
-@Repository
+
 public interface RaceRepository extends JpaRepository<RaceEntity, Integer> 
 {
 

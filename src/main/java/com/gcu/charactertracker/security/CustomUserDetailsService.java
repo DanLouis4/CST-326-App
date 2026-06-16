@@ -1,12 +1,15 @@
 package com.gcu.charactertracker.security;
 
-import com.gcu.charactertracker.entities.UserEntity;
-import com.gcu.charactertracker.repositories.UserRepository;
+import java.util.Locale;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.gcu.charactertracker.entities.UserEntity;
+import com.gcu.charactertracker.repositories.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -25,10 +28,14 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found: " + username));
 
+        String roleName = user.getRole()
+                .getRoleName()
+                .toUpperCase(Locale.ROOT);
+
         return User.builder()
                 .username(user.getUsername())
                 .password(user.getPasswordHash())
-                .authorities("ROLE_" + user.getRole().getRoleName())
+                .authorities("ROLE_" + roleName)
                 .build();
     }
 }

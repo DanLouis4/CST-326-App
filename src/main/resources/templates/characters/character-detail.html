@@ -21,9 +21,26 @@
             <div class="character-detail-title-row">
                 <h1 th:text="${character.characterName}">Character Name</h1>
 
-                <button class="favorite-btn character-detail-favorite" type="button">
-                    <img th:src="@{/images/icons/heart.svg}" alt="Favorite" class="favorite-icon">
-                </button>
+                <form class="favorite-form"
+                    th:action="@{/users/favorites/toggle/{id}(id=${character.characterId})}"
+                    method="post"
+                    th:if="${#authorization.expression('isAuthenticated()')}">
+
+                    <input type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}" />
+
+                    <button type="submit"
+                            class="favorite-btn"
+                            th:classappend="${isFavorited} ? ' is-favorite' : ''"
+                            th:attr="aria-pressed=${isFavorited}">
+
+                        <i class="bi"
+                        th:classappend="${isFavorited} ? ' bi-heart-fill' : ' bi-heart'"></i>
+
+                    </button>
+
+                </form>
             </div>
 
             <div class="character-detail-actions">

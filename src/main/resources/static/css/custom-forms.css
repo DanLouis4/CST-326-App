@@ -1,0 +1,106 @@
+/**
+ *
+ *  CUSTOM FORM STYLES
+ *
+ */
+
+.ct-form
+{
+    width: 100%;
+}
+
+.ct-form-group
+{
+    margin-bottom: 1.7rem;
+}
+
+.ct-form-control,
+.ct-form-select
+{
+    width: 100%;
+
+    background-color: transparent;
+    color: #f2f2f2;
+
+    border: none;
+    border-left: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-radius: 0;
+
+    padding: 0.35rem 0.75rem 0.35rem 0.75rem;
+
+    font-family: "Cormorant Garamond", Garamond, serif;
+    font-size: 1.25rem;
+
+    outline: none;
+    box-shadow: none;
+}
+
+.ct-form-control:focus,
+.ct-form-select:focus
+{
+    background-color: transparent;
+    color: #ffffff;
+
+    border-left: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+
+    outline: none;
+    box-shadow: none;
+}
+
+.ct-form-control::placeholder
+{
+    color: rgba(255,255,255,0.35);
+}
+
+.ct-form-label
+{
+    display: block;
+
+    margin-top: 0.25rem;
+    margin-left: 0.75rem;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ct-form-select option
+{
+    color: #111111;
+}
+
+.ct-form-button
+{
+    width: 100%;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 0.75rem 1rem;
+
+    background-color: #00a84f;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.ct-form-button:hover
+{
+    background-color: #00bf5a;
+    color: #ffffff;
+    transform: translateY(-1px);
+}

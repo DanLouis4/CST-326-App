@@ -19,11 +19,25 @@
         <div class="container-fluid">
 
             
-            <h1>Favorite Characters</h1>
+        <div class="search-header text-center mb-4">
+            <h1 class="cinzel-regular mb-1">Favorite Characters</h1>
+            <p class="mb-4">Here are the characters you have marked as favorites.</p>
+        </div>
             
             <!-- CHARACTER CARDS -->
-            <div th:each="character : ${characters}">
-                <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>
+
+            <section th:if="${#lists.isEmpty(characters)}"
+                     class="search-no-results">
+                <h2>You have not marked any characters as favorites yet.</h2>
+            </section>
+
+            <div th:unless="${#lists.isEmpty(characters)}"
+                 class="character-grid mt-4">
+
+                <th:block th:each="character : ${characters}">
+                    <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>
+                </th:block>
+
             </div>
             
         </div>

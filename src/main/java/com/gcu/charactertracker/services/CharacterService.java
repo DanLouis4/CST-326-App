@@ -15,7 +15,6 @@ package com.gcu.charactertracker.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gcu.charactertracker.entities.CharacterEntity;
@@ -25,8 +24,11 @@ import com.gcu.charactertracker.repositories.CharacterRepository;
 public class CharacterService 
 {
     
-    @Autowired
-    private CharacterRepository characterRepository;
+    private final CharacterRepository characterRepository;
+
+    public CharacterService(CharacterRepository characterRepository) {
+        this.characterRepository = characterRepository;
+    }
     
     /**
      * Retrieves a list of all characters from the database.
@@ -36,6 +38,25 @@ public class CharacterService
     {
         return characterRepository.findAll();
     }
+
+    /**
+     * Retrieves characters visible to the current user.
+     * 
+     * Logged-out users see only public characters.
+     * Logged-in users see public characters plus their own private characters.
+     * 
+     * @param userId the logged-in user's ID, or null if not logged in
+     * @return a filtered list of visible characters
+     */
+    public List<CharacterEntity> getVisibleCharactersForUser(Integer userId)
+    {
+        if (userId == null)
+        {
+            return characterRepository.findByVisibility(1);
+        }
+
+        return characterRepository.findByVisibilityOrUserId(1, userId);
+    }    
     
     /**
      * Retrieves a character by its ID.
@@ -46,6 +67,16 @@ public class CharacterService
     {
         Optional<CharacterEntity> character = characterRepository.findById(id);
         return character.orElse(null);
+    }
+
+    /**
+     * Retrieves a list of characters created by a specific user.
+     * @param userId the ID of the user
+     * @return a list of CharacterEntity objects created by the user
+     */
+    public List<CharacterEntity> getCharactersByUserId(Integer userId)
+    {
+        return characterRepository.findByUserId(userId);
     }
 
     /**
@@ -68,4 +99,14 @@ public class CharacterService
         characterRepository.deleteById(id);
     }
 
+    /**
+     * Retrieves a list of characters by their IDs.
+     * 
+     * @param characterIds the list of character IDs
+     * @return a list of CharacterEntity objects
+     */
+    public List<CharacterEntity> getCharactersByIds(List<Integer> characterIds)
+    {
+        return characterRepository.findByCharacterIdIn(characterIds);
+    }
 }

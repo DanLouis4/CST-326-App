@@ -16,6 +16,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
+        <div th:if="${errorMessage}" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <div class="character-list-header text-center mb-4">
             <h1 class="cinzel-regular mb-1">Characters</h1>
             <p class="mb-4">Manage your characters here. You can create, view, edit, or delete characters as needed.</p>

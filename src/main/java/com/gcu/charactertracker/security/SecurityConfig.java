@@ -21,6 +21,7 @@ public class SecurityConfig {
                     "/auth/login",
                     "/auth/register",
                     "/characters",
+                    "/characters/detail/**",
                     "/search",
                     "/about",
                     "/css/**",

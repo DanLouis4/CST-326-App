@@ -1,0 +1,26 @@
+/**
+ *
+ *  SEARCH RESULTS
+ *
+ */
+
+.search-no-results
+{
+    min-height: 300px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+.search-no-results h2
+{
+    font-family: "Cinzel", serif;
+    font-size: 2rem;
+    font-weight: 400;
+
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+}

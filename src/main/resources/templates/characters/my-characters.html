@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/defaultTemplate}">
+<head>
+    <meta charset="UTF-8">
+    <title>My Characters</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="container-fluid">
+
+            <div class="character-list-header text-center">
+                <h1 class="cinzel-regular">My Characters</h1>
+                <p>Characters created by your account.</p>
+            </div>
+
+            <section th:if="${#lists.isEmpty(characters)}"
+                     class="search-no-results">
+                <h2>You have not created any characters yet.</h2>
+            </section>
+
+            <div th:unless="${#lists.isEmpty(characters)}"
+                 class="character-grid mt-4">
+
+                <th:block th:each="character : ${characters}">
+                    <div th:replace="~{fragments/character-card :: characterCard(${character})}"></div>
+                </th:block>
+                
+                <!-- CREATE CHARACTER CARD -->
+                <a th:href="@{/characters/create}" class="character-create-card">
+
+                    <div class="create-card-content">
+
+                        <div class="create-icon">
+                            <i class="bi bi-plus-lg"></i>
+                        </div>
+
+                        <h3>Create Character</h3>
+
+                        <p>Add a new hero, villain, NPC, or monster</p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
