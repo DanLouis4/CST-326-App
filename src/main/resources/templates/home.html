@@ -6,14 +6,27 @@
 
 <body>
 
-    <div layout:fragment="content">
+    <div layout:fragment="content" class="home-page">
 
-        <div class="text-center">
-            <h1>Character Tracker</h1>
-            <p>Spring Boot scaffold is working.</p>
+        <section class="home-hero">
 
-            <a th:href="@{/characters}">View Characters</a>
-        </div>
+            <div class="home-hero-content">
+
+                <h1 class="home-brand-title">
+                    Character Tracker
+                </h1>
+
+                <p class="home-brand-subtitle">
+                    Create, manage, and discover characters for your campaigns.
+                </p>
+
+                <a th:href="@{/characters}" class="home-view-button">
+                    View Characters
+                </a>
+
+            </div>
+
+        </section>
 
     </div>
 

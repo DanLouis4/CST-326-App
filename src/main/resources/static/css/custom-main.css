@@ -1,0 +1,139 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+
+:root
+{
+    --brand-color: #e8e1d2;
+    --brand-muted: rgba(232, 225, 210, 0.78);
+    --brand-shadow: rgba(0, 0, 0, 0.75);
+    --brand-accent: #d4af37;
+}
+
+/* Font Helpers */
+.rubik-dirt-regular
+{
+    font-family: "Rubik Dirt", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Global Helpers */
+.brand-color
+{
+    color: var(--brand-color);
+}
+
+/* HOME PAGE */
+
+.home-page
+{
+    min-height: calc(100vh - 96px);
+
+    background-color: #2c2c31;
+    background-image:
+        linear-gradient(
+            rgba(44, 44, 49, 0.38),
+            rgba(44, 44, 49, 0.58)
+        ),
+        url("/images/backgrounds/bg-brickwall.png");
+
+    background-repeat: repeat;
+    background-size: 560px 560px;
+    background-position: center top;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-hero
+{
+    width: 100%;
+    min-height: calc(100vh - 140px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-7vh);
+}
+
+.home-hero-content
+{
+    text-align: center;
+    padding: 2rem;
+}
+
+.home-brand-title
+{
+    font-family: "Rubik Dirt", system-ui;
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 400;
+    line-height: 0.95;
+
+    color: var(--brand-color);
+
+    letter-spacing: 4px;
+    text-shadow:
+        0 4px 0 rgba(0, 0, 0, 0.45),
+        0 12px 28px var(--brand-shadow);
+
+    margin-bottom: 1rem;
+}
+
+.home-brand-subtitle
+{
+    max-width: 720px;
+    margin: 0 auto 2rem auto;
+
+    font-family: "Cormorant Garamond", Garamond, serif;
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    color: var(--brand-muted);
+    letter-spacing: 1px;
+
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
+}
+
+.home-view-button
+{
+    display: inline-block;
+
+    padding: 0.85rem 2.25rem;
+
+    border: 1px solid rgba(212, 175, 55, 0.85);
+    border-radius: 999px;
+
+    background-color: rgba(0, 0, 0, 0.35);
+    color: var(--brand-color);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.45),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.home-view-button:hover
+{
+    transform: translateY(-2px);
+
+    background-color: rgba(212, 175, 55, 0.18);
+    color: #ffffff;
+    border-color: rgba(255, 215, 90, 1);
+
+    box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.6),
+        0 0 18px rgba(212, 175, 55, 0.3);
+}

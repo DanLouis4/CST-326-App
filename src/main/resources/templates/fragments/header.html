@@ -2,9 +2,9 @@
     th:fragment="header"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Character Tracker</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top app-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand app-brand" th:href="@{/}">Character Tracker</a>
             <!-- Mobile toggle -->
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,13 +14,13 @@
 				<!-- Navigation links -->
 				<div class="collapse navbar-collapse" id="navbarNav">
 				    <!-- Left side links -->
-				    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-				        <li class="nav-item"><a class="nav-link" href="/characters">Characters</a></li>
-				        <li class="nav-item"><a class="nav-link" href="/characters/create">Create</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
-				        <li class="nav-item"><a class="nav-link" href="/">About</a></li>
-				    </ul>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/characters}">Characters</a></li>
+						<li class="nav-item text-uppercase text-white" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/characters/create}">**Create**</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/search}">Search</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/}">About</a></li>
+					</ul>
 
                     <!-- Right side links -->
                     <!-- User Not Signed In -->
